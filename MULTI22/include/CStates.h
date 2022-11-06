@@ -1,20 +1,21 @@
 #include <Conveyor.h>
 
-int ConveyorStateCheck()
+void ConveyorStateCheck()
 {
 
     if (digitalRead(CStop_i))
     {
-        return oState = S;
+        dacWrite(CSpeed_o, ceil(VelMin));
+        oState = S;
     }
     else if (digitalRead(CFWR_i))
     {
-        return oState = FWR;
+        oState = FWR;
     }
 
     else if (digitalRead(CRWD_i))
     {
-        return oState = BWR;
+        oState = BWR;
     }
 }
 
@@ -76,14 +77,14 @@ int Charging()
 int EStop()
 {
     EMERGENCY_STOP();
-    state = (!digitalRead(start_i) && !digitalRead(eStop_i)) ? STAND_BY
-                                                             : E_STOP;
+    return state = (!digitalRead(start_i) && !digitalRead(eStop_i)) ? STAND_BY
+                                                                    : E_STOP;
 }
 
 int UndefinedState()
 {
     Serial.println("Undefined state");
-    state = STAND_BY;
+    return state = STAND_BY;
 }
 
 void stateDebug()

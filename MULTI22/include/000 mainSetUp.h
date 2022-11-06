@@ -11,7 +11,7 @@ void Main12()
     Serial.println("===========================================");
     Serial.println();
     Serial.println("Script by: Juan C Botero");
-    Serial.printf("Version: %d", version);
+    Serial.print("Version: 3.0.0");
     Serial.println("               [ main12.com ]              ");
 
     Serial.println();
