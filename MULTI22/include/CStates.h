@@ -19,6 +19,23 @@ void ConveyorStateCheck()
     }
 }
 
+void SetState(int st)
+{
+    switch (st)
+    {
+    case 0:
+        dacWrite(CSpeed_o, ceil(VelMin));
+        oState = S;
+        break;
+    case 1:
+        oState = FWR;
+        break;
+    case 2:
+        oState = BWR;
+        break;
+    }
+}
+
 int ConveyorState(byte cState)
 {
     switch (cState)
@@ -46,6 +63,9 @@ int ConveyorState(byte cState)
 int StandBy()
 {
     digitalWrite(power_o, LOW);
+    digitalWrite(CReverse_o, LOW);
+    dacWrite(CSpeed_o, LOW);
+    oState = S;
     // batteryCheck();
 
     // state = (digitalRead(start_i) && !digitalRead(eStop_i) && !waitMillis) ? OPERATION
