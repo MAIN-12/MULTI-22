@@ -43,15 +43,20 @@
  * SOFTWARE.
  */
 
-#include <CStates.h>
+// #include <CStates.h>
+#include <MultiThread.h>
+
 
 void setup()
 {
   MainSetUp();
   ConveyorBegin();
-  attachInterrupt(CStop_i,ConveyorStateCheck,CHANGE);
-  attachInterrupt(CFWR_i, ConveyorStateCheck,CHANGE);
-  attachInterrupt(CRWD_i, ConveyorStateCheck,CHANGE);
+  BlynkEdgent.begin();
+  timer.setInterval(3000L, InternatParameters);
+  MultiTreadStart();
+  attachInterrupt(CStop_i, ConveyorStateCheck,CHANGE);
+  attachInterrupt(CFWR_i,  ConveyorStateCheck,CHANGE);
+  attachInterrupt(CRWD_i,  ConveyorStateCheck,CHANGE);
 }
 
 void loop()

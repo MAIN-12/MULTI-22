@@ -32,7 +32,8 @@
 #include <Wire.h>
 #include <SPI.h>
 #include <SD.h>
- 
+ #pragma once
+
 // #include <RTClib.h>
 // #include <OneButton.h>
 // #include <LoRa.h>
@@ -46,9 +47,21 @@
 // }
 
 // =============== CODE VERSION =================================================
-#define version '3.0.0'
-char update[]= "09-20-2022";
-char ID[]= "XXXX001MULTI22";
+// #define version '3.0.1'
+// char update[]= "11-06-2022";
+// char ID[]= "XXXX001MULTI22";
+
+#define BLYNK_TEMPLATE_ID "TMPLj55pEBQ2"
+#define BLYNK_DEVICE_NAME "MULTI22"
+#define BOARD_HARDWARE_VERSION "MULTI22-02"
+#define BLYNK_FIRMWARE_VERSION "0.4.1"
+
+#define BLYNK_PRINT Serial
+#define APP_DEBUG
+#define BLYNK_DEBUG
+
+#define BOARD_LED_PIN 12
+#define BRIGHTNESS 70
 
 // ================ INPUTS ======================================================
 #define start_i           34 // START selector,  (Must be a hardware interrupt pin)
