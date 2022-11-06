@@ -65,12 +65,12 @@
 
 // ================ INPUTS ======================================================
 #define start_i           34 // START selector,  (Must be a hardware interrupt pin)
-#define eStop_i           37 // STOP button,     (Must be a hardware interrupt pin)
-#define CFWR_i            35 // Conveyor Forward switch input pin 
-#define CRWD_i            32 // Conveyor Rewind switch input pin
-#define CStop_i           39 // Conveyor stop switch input pin 
-#define swUp_i            33 // Up switch input pin
-#define swDown_i          25 // Down switch input pin
+#define eStop_i            0 // STOP button,     (Must be a hardware interrupt pin)
+#define CFWR_i            27 // Conveyor Forward switch input pin 
+#define CRWD_i            14 // Conveyor Rewind switch input pin
+#define CStop_i           12 // Conveyor stop switch input pin 
+#define swUp_i             0 // Up switch input pin
+#define swDown_i           0 // Down switch input pin
 #define limitUp_i          0 // Limit end switch input pin
 #define limitDown_i        0 // Limit end switch input pin
 #define swBeacon_i         0 // Beacon light switch input pin
@@ -86,7 +86,7 @@
 #define sw4_i              0 // Aux switch input pin
  
 // ================== OUTPUTS ===================================================
-#define power_o 	      14 // Enables the power of all subsystems
+#define power_o 	       0 // Enables the power of all subsystems
 #define beacon_o           0 // Beacon light output pin
 #define reflector_o        0 // Reflector light output pin
 #define up_o               0 // Up output pin
@@ -94,7 +94,7 @@
 #define FWR_o              0 // Forward output pin
 #define RWD_o              0 // Rewind output pin
 #define CSpeed_o          25 // Conveyor speed output pin [PWM]
-#define CReverse_o        27 // Conveyor speed output pin 
+#define CReverse_o        04 // Conveyor speed output pin 
 #define brakeIn_o          0 // Brake IN output pin 
 #define breakeOut_o        0 // Brake OUT output pin
 #define batteryState1_o    0 // Battery indicator color 1 output pin 
