@@ -171,6 +171,8 @@ void ConveyorBegin()
 void EMERGENCY_STOP()
 {
   digitalWrite(power_o, LOW);
+  digitalWrite(CSpeed_o, LOW);
+  digitalWrite(CReverse_o, LOW);
   digitalWrite(FWR_o, LOW);
   digitalWrite(RWD_o, LOW);
   digitalWrite(up_o, LOW);

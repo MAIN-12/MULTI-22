@@ -70,5 +70,5 @@ void loop()
   default:        UndefinedState(); break;
   }
 
-  stateDebug();
+  // stateDebug();
 }

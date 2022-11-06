@@ -54,7 +54,7 @@
 #define BLYNK_TEMPLATE_ID "TMPLj55pEBQ2"
 #define BLYNK_DEVICE_NAME "MULTI22"
 #define BOARD_HARDWARE_VERSION "MULTI22-02"
-#define BLYNK_FIRMWARE_VERSION "0.4.1"
+#define BLYNK_FIRMWARE_VERSION "0.4.4"
 
 #define BLYNK_PRINT Serial
 #define APP_DEBUG
@@ -144,5 +144,5 @@ const int brakeTime =      1000;
 
 // =============== SETTINGS =====================================================
 byte DIGITAL_INPUTS[] = {start_i, eStop_i, CFWR_i, CRWD_i, CStop_i, swUp_i, swDown_i, limitUp_i, limitDown_i, swBeacon_i, swReflector_i, charger_i, sw1_i, sw2_i, sw3_i, sw4_i }; //
-byte DIGITAL_OUTPUTS[] = {beacon_o, reflector_o, up_o, down_o, FWR_o, RWD_o, batteryState1_o, batteryState2_o, generalState1_o, generalState2_o};//
+byte DIGITAL_OUTPUTS[] = {beacon_o, reflector_o, up_o, down_o, FWR_o, RWD_o, CSpeed_o, CReverse_o, batteryState1_o, batteryState2_o, generalState1_o, generalState2_o};//
 // OneButton button1(swStop, true);

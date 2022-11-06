@@ -97,7 +97,6 @@ void setup() {
   pinMode(REVS.pin,OUTPUT);
   digitalWrite(REVS.pin,REVS.state);
   
-  
 }
 
 void loop() {

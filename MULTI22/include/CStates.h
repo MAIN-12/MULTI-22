@@ -24,15 +24,17 @@ int ConveyorState(byte cState)
     switch (cState)
     {
     case S:
-        digitalWrite(CReverse_o, HIGH);
+        digitalWrite(CReverse_o, LOW);
         dacWrite(CSpeed_o, ceil(VelMin));
         break;
 
     case FWR:
+        digitalWrite(CReverse_o, LOW);
         ConveyorControl(VelMax);
         break;
 
     case BWR:
+        digitalWrite(CReverse_o, HIGH);
         ConveyorControl(-VelMax);
         break;
     default:
@@ -46,8 +48,10 @@ int StandBy()
     digitalWrite(power_o, LOW);
     // batteryCheck();
 
-    state = (digitalRead(start_i) && !digitalRead(eStop_i) && !waitMillis) ? OPERATION
-                                                                           : STAND_BY;
+    // state = (digitalRead(start_i) && !digitalRead(eStop_i) && !waitMillis) ? OPERATION
+    //                                                                        : STAND_BY;
+    state = (digitalRead(start_i)) ? OPERATION
+                                   : STAND_BY;
     waitMillis = (state == OPERATION)    ? millis()
                  : !digitalRead(start_i) ? 0
                                          : waitMillis;
@@ -62,9 +66,11 @@ int Operation()
     // batteryCheck();
     // illumination();
 
-    return state = digitalRead(eStop_i)                                            ? E_STOP
-                   : (!digitalRead(start_i) || (millis() - waitMillis > waitTime)) ? STAND_BY
-                                                                                   : OPERATION;
+    // return state = digitalRead(eStop_i)                                            ? E_STOP
+    //                : (!digitalRead(start_i) || (millis() - waitMillis > waitTime)) ? STAND_BY
+    //                                                                                : OPERATION;
+    return state = (!digitalRead(start_i)) ? STAND_BY
+                                           : OPERATION;
 }
 
 int Charging()
