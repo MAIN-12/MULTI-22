@@ -1,38 +1,69 @@
 #include <Conveyor.h>
 
+int ConveyorStateCheck()
+{
+
+    if (digitalRead(CStop_i))
+    {
+        return oState = S;
+    }
+    else if (digitalRead(CFWR_i))
+    {
+        return oState = FWR;
+    }
+
+    else if (digitalRead(CRWD_i))
+    {
+        return oState = BWR;
+    }
+}
+
+int ConveyorState(byte cState)
+{
+    switch (cState)
+    {
+    case S:
+        digitalWrite(CReverse_o, HIGH);
+        dacWrite(CSpeed_o, ceil(VelMin));
+        break;
+
+    case FWR:
+        ConveyorControl(VelMax);
+        break;
+
+    case BWR:
+        ConveyorControl(-VelMax);
+        break;
+    default:
+        break;
+    }
+    return oState;
+}
+
 int StandBy()
 {
     digitalWrite(power_o, LOW);
     // batteryCheck();
 
     state = (digitalRead(start_i) && !digitalRead(eStop_i) && !waitMillis) ? OPERATION
-                                                                               : STAND_BY;
-    waitMillis = (state == OPERATION)     ? millis()
+                                                                           : STAND_BY;
+    waitMillis = (state == OPERATION)    ? millis()
                  : !digitalRead(start_i) ? 0
-                                          : waitMillis;
+                                         : waitMillis;
     return state;
 }
 
 int Operation()
 {
     digitalWrite(power_o, HIGH);
+    ConveyorState(oState);
     // elevation();
     // batteryCheck();
     // illumination();
 
-    if (digitalRead(CStop_i)) //<-----------------------------------------Check
-    {
-        digitalWrite(CReverse_o, HIGH);
-        dacWrite(CSpeed_o, ceil(VelMin));
-    }
-    else if (digitalRead(CFWR_i))
-        ConveyorControl(VelMax);
-    else if (digitalRead(CRWD_i))
-        ConveyorControl(-VelMax);
-
     return state = digitalRead(eStop_i)                                            ? E_STOP
                    : (!digitalRead(start_i) || (millis() - waitMillis > waitTime)) ? STAND_BY
-                                                                                     : OPERATION;
+                                                                                   : OPERATION;
 }
 
 int Charging()
@@ -46,7 +77,7 @@ int EStop()
 {
     EMERGENCY_STOP();
     state = (!digitalRead(start_i) && !digitalRead(eStop_i)) ? STAND_BY
-                                                                 : E_STOP;
+                                                             : E_STOP;
 }
 
 int UndefinedState()

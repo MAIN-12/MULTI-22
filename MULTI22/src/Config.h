@@ -73,7 +73,7 @@ char ID[]= "XXXX001MULTI22";
 #define sw4_i              0 // Aux switch input pin
  
 // ================== OUTPUTS ===================================================
-#define power_o 	        14 // Enables the power of all subsystems
+#define power_o 	      14 // Enables the power of all subsystems
 #define beacon_o           0 // Beacon light output pin
 #define reflector_o        0 // Reflector light output pin
 #define up_o               0 // Up output pin
@@ -94,7 +94,13 @@ char ID[]= "XXXX001MULTI22";
 #define OPERATION        1 // main FSM state 2
 #define CHARGING         2 // main FSM state 3
 #define E_STOP           3 // main FSM state 4
+
+#define S                0 //Operational state Stop
+#define FWR              1 //Operational state Foward
+#define BWR              2 //Operational state Backward
+
 byte state = STAND_BY;
+byte oState = S; //Operational Stae 
 byte oldstate =         -1;
 
 byte elevationState =    0;
