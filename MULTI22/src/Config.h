@@ -51,7 +51,7 @@ char update[]= "09-20-2022";
 char ID[]= "XXXX001MULTI22";
 
 // ================ INPUTS ======================================================
-#define start_i           36 // START selector,  (Must be a hardware interrupt pin)
+#define start_i           34 // START selector,  (Must be a hardware interrupt pin)
 #define eStop_i           37 // STOP button,     (Must be a hardware interrupt pin)
 #define CFWR_i            35 // Conveyor Forward switch input pin 
 #define CRWD_i            32 // Conveyor Rewind switch input pin
