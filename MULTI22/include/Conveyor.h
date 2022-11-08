@@ -42,6 +42,7 @@ void dualWrite(byte pin1, byte pin2, byte S1, byte S2)
   digitalWrite(pin2, S2);
 }
 
+
 void ConveyorControl(float ref)
 {
   float Tau = ts / 5;
@@ -67,32 +68,6 @@ void Coveyor()
 {
 }
 
-byte batteryCheck()
-{
-  byte BCP = map(analogRead(shunt_i), 100, 1023, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
-
-  switch (BCP)
-  {
-  case 0 ... 25:
-    if (millis() - blinkMillis >= blinkInterval)
-    {
-      dualWrite(batteryState1_o, batteryState2_o, LOW, !digitalRead(batteryState2_o));
-      blinkMillis = millis();
-    }
-    break;
-  case 26 ... 50:
-    dualWrite(batteryState1_o, batteryState2_o, LOW, HIGH);
-    break;
-  case 51 ... 75:
-    dualWrite(batteryState1_o, batteryState2_o, HIGH, LOW);
-    break;
-  case 76 ... 100:
-    dualWrite(batteryState1_o, batteryState2_o, LOW, LOW);
-    break;
-  }
-  return BCP;
-}
-
 void brakes()
 {
   switch (brakesState)
@@ -116,7 +91,7 @@ void elevation()
   case 0: // STAND_BY
     dualWrite(up_o, down_o, LOW, LOW);
     elevationState = digitalRead(swUp_i) ? 1 : digitalRead(swDown_i) ? 2
-                                                                 : 0;
+                                                                     : 0;
     break;
   case 1: // UP
     dualWrite(up_o, down_o, HIGH, LOW);

@@ -1,4 +1,6 @@
 #include <Conveyor.h>
+#include <BatteryState.h>
+
 
 void ConveyorStateCheck()
 {

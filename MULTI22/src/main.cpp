@@ -69,6 +69,6 @@ void loop()
   case E_STOP:    EStop();          break;
   default:        UndefinedState(); break;
   }
-
+  batteryCheck();
   // stateDebug();
 }

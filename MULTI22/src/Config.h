@@ -54,13 +54,13 @@
 #define BLYNK_TEMPLATE_ID "TMPLj55pEBQ2"
 #define BLYNK_DEVICE_NAME "MULTI22"
 #define BOARD_HARDWARE_VERSION "MULTI22-02"
-#define BLYNK_FIRMWARE_VERSION "0.4.5"
+#define BLYNK_FIRMWARE_VERSION "0.4.6"
 
 #define BLYNK_PRINT Serial
 #define APP_DEBUG
 #define BLYNK_DEBUG
 
-#define BOARD_LED_PIN 12
+#define BOARD_LED_PIN 18
 #define BRIGHTNESS 70
 
 // ================ INPUTS ======================================================
@@ -76,7 +76,7 @@
 #define swBeacon_i         0 // Beacon light switch input pin
 #define swReflector_i      0 // Reflector light switch input pin
 #define swBrake_i          0 // Breaker switch 
-#define shunt_i            0 // Shunt sensor input pin
+#define battery_i         35 // Shunt sensor input pin
 #define temp_i             0 // Temp sensor input pin
 #define hum_i              0 // Hum sensor input pin
 #define charger_i          0 // Charger input pin (Must be a hardware interrupt pin)
@@ -97,8 +97,9 @@
 #define CReverse_o        04 // Conveyor speed output pin 
 #define brakeIn_o          0 // Brake IN output pin 
 #define breakeOut_o        0 // Brake OUT output pin
-#define batteryState1_o    0 // Battery indicator color 1 output pin 
-#define batteryState2_o    2 // Battery indicator color 2 output pin
+#define batteryIndicator1_o    13 // Battery indicator color 1 output pin 
+#define batteryIndicator2_o    17 // Battery indicator color 2 output pin
+#define batteryIndicator3_o    16 // Battery indicator color 2 output pin
 #define generalState1_o    0 // General state color 1 output pin
 #define generalState2_o    0 // General state color 2 output pin
 
@@ -139,10 +140,10 @@ uintmax_t blinkMillis =       0;
 uintmax_t waitMillis =        0;
 uintmax_t brakeMillis =       0;
 const int blinkInterval =   500;
-const int waitTime =    30000;
+const int waitTime =      30000;
 const int brakeTime =      1000;
 
 // =============== SETTINGS =====================================================
-byte DIGITAL_INPUTS[] = {start_i, eStop_i, CFWR_i, CRWD_i, CStop_i, swUp_i, swDown_i, limitUp_i, limitDown_i, swBeacon_i, swReflector_i, charger_i, sw1_i, sw2_i, sw3_i, sw4_i }; //
-byte DIGITAL_OUTPUTS[] = {beacon_o, reflector_o, up_o, down_o, FWR_o, RWD_o, CSpeed_o, CReverse_o, batteryState1_o, batteryState2_o, generalState1_o, generalState2_o};//
+byte DIGITAL_INPUTS[] = {start_i, eStop_i, CFWR_i, CRWD_i, CStop_i, swUp_i, swDown_i, limitUp_i, limitDown_i, swBeacon_i, swReflector_i, battery_i, sw1_i, sw2_i, sw3_i, sw4_i }; //
+byte DIGITAL_OUTPUTS[] = {beacon_o, reflector_o, up_o, down_o, FWR_o, RWD_o, CSpeed_o, CReverse_o, batteryIndicator1_o, batteryIndicator2_o, batteryIndicator3_o, generalState1_o, generalState2_o};//
 // OneButton button1(swStop, true);

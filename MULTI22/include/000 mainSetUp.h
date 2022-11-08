@@ -1,6 +1,8 @@
 
 #include "Arduino.h"
 #include <Config.h>
+ #pragma once
+
 
 void Main12()
 {
