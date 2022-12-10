@@ -44,14 +44,28 @@
  */
 
 #include <CStates.h>
+<<<<<<< Updated upstream
+=======
+// #include <MultiThread.h>
+
+>>>>>>> Stashed changes
 
 void setup()
 {
   MainSetUp();
   ConveyorBegin();
+<<<<<<< Updated upstream
   attachInterrupt(CStop_i,ConveyorStateCheck,CHANGE);
   attachInterrupt(CFWR_i, ConveyorStateCheck,CHANGE);
   attachInterrupt(CRWD_i, ConveyorStateCheck,CHANGE);
+=======
+  // BlynkEdgent.begin();
+  // timer.setInterval(3000L, InternatParameters);
+  // MultiTreadStart();
+  attachInterrupt(CStop_i, ConveyorStateCheck,CHANGE);
+  attachInterrupt(CFWR_i,  ConveyorStateCheck,CHANGE);
+  attachInterrupt(CRWD_i,  ConveyorStateCheck,CHANGE);
+>>>>>>> Stashed changes
 }
 
 void loop()
