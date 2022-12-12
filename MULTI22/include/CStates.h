@@ -3,7 +3,6 @@
 
 void ConveyorStateCheck()
 {
-
     if (digitalRead(CStop_i))
     {
         dacWrite(CSpeed_o, ceil(VelMin));
@@ -47,11 +46,13 @@ int StandBy()
     digitalWrite(power_o, LOW);
     // batteryCheck();
 
-    state = (digitalRead(start_i) && !digitalRead(eStop_i) && !waitMillis) ? OPERATION
-                                                                           : STAND_BY;
-    waitMillis = (state == OPERATION)    ? millis()
-                 : !digitalRead(start_i) ? 0
-                                         : waitMillis;
+#ifdef SleepTime
+    state = (digitalRead(start_i) && !digitalRead(eStop_i) && !waitMillis) ? OPERATION : STAND_BY;
+    waitMillis = (state == OPERATION) ? millis() : !digitalRead(start_i) ? 0
+                                                                         : waitMillis;
+#else
+    state = (digitalRead(start_i) && !digitalRead(eStop_i)) ? OPERATION : STAND_BY;
+#endif
     return state;
 }
 
@@ -63,9 +64,16 @@ int Operation()
     // batteryCheck();
     // illumination();
 
+#ifdef SleepTime
+
     return state = digitalRead(eStop_i)                                            ? E_STOP
                    : (!digitalRead(start_i) || (millis() - waitMillis > waitTime)) ? STAND_BY
                                                                                    : OPERATION;
+#else
+    return state = digitalRead(eStop_i)      ? E_STOP
+                   : (!digitalRead(start_i)) ? STAND_BY
+                                             : OPERATION;
+#endif
 }
 
 int Charging()

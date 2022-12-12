@@ -1,7 +1,17 @@
+#include <Arduino.h>
+#include <EEPROM.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+// #include <RTClib.h>
+// #include <OneButton.h>
+// #include <LoRa.h>
+// #include <ESP8266WiFi.h>
+// #include <GoldenMotor.h>
+// #include <Display.h>
 
-#include "Arduino.h"
 #include <Config.h>
-#include <MultiBoards.h>
+#include <Board_IO.h>
 
 void Main12()
 {

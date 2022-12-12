@@ -26,25 +26,6 @@
 
 */
 
-#include <Arduino.h>
-#include <EEPROM.h>
-#include <Wire.h>
-#include <SPI.h>
-#include <SD.h>
-
-
-// #include <RTClib.h>
-// #include <OneButton.h>
-// #include <LoRa.h>
-// #include <ESP8266WiFi.h>
-// #include <GoldenMotor.h>
-// #include <Display.h>
-
-// extern "C"
-// {
-// #include "user_interface.h"
-// }
-
 // =============== CODE VERSION =================================================
 #define version '3.0.0'
 char update[]= "09-20-2022";
@@ -79,13 +60,17 @@ float u_apos = VelMin;
 bool ReversState;
 
 
+// #define SleepTime
+uintmax_t sleepTimer =       30; // time in min
+
+
 // ============= TIME VARIABLES ================================================
-uintmax_t blinkMillis =       0;
-uintmax_t waitMillis =        0;
-uintmax_t brakeMillis =       0;
-const int blinkInterval =   500;
-const int waitTime =    30000;
-const int brakeTime =      1000;
+uintmax_t waitMillis =   sleepTimer*60000;
+uintmax_t blinkMillis =                 0;
+uintmax_t brakeMillis =                 0;
+const int blinkInterval =             500;
+const int waitTime =                30000;
+const int brakeTime =                1000;
 
 // =============== SETTINGS =====================================================
 

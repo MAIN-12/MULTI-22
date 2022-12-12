@@ -50,13 +50,12 @@ void setup()
 {
   MainSetUp();
   ConveyorBegin();
-
-  // BlynkEdgent.begin();
-  // timer.setInterval(3000L, InternatParameters);
-  // MultiTreadStart();
   attachInterrupt(CStop_i, ConveyorStateCheck,CHANGE);
   attachInterrupt(CFWR_i,  ConveyorStateCheck,CHANGE);
   attachInterrupt(CRWD_i,  ConveyorStateCheck,CHANGE);
+  // BlynkEdgent.begin();
+  // timer.setInterval(3000L, InternatParameters);
+  // MultiTreadStart();
 }
 
 void loop()
@@ -70,7 +69,6 @@ void loop()
   default:        UndefinedState(); break;
   }
   // batteryCheck();
-  // 
   // TransmitLog();
   // stateDebug();
 }
