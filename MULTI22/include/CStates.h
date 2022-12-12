@@ -1,4 +1,5 @@
 #include <Conveyor.h>
+#include <Arduino.h>
 
 void ConveyorStateCheck()
 {

@@ -1,6 +1,7 @@
 
 #include "Arduino.h"
 #include <Config.h>
+#include <MultiBoards.h>
 
 void Main12()
 {
