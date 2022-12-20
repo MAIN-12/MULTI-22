@@ -32,8 +32,12 @@
  * SOFTWARE.
  */
 
-// #include <Config.h>
 #include <000 mainSetUp.h>
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "Arduino.h"
+#else
+#include "WProgram.h"
+#endif
 
 // ================================= FUNCIONES ==================================
 void dualWrite(byte pin1, byte pin2, byte S1, byte S2)
@@ -52,24 +56,24 @@ void ConveyorControl(float ref)
   if (u_apos < 0)
   {
     ReversState = true;
-    dacWrite(CSpeed_o, abs(ceil(-u_apos)));
+    // dacWrite(CSpeed_o, abs(ceil(-u_apos)));
+    analogWrite(CSpeed_o, abs(ceil(-u_apos)));
   }
   else
   {
     ReversState = false;
-    dacWrite(CSpeed_o, abs(ceil(u_apos)));
+    // dacWrite(CSpeed_o, abs(ceil(u_apos)));
+    analogWrite(CSpeed_o, abs(ceil(u_apos)));
   }
   digitalWrite(CReverse_o, ReversState);
   delay(delta * 1000);
 }
 
-void Coveyor()
-{
-}
-
 byte batteryCheck()
 {
-  byte BCP = map(analogRead(shunt_i), 100, 1023, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
+  byte BCP = map(analogRead(batteryVoltage_i), 0, 1023, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
+  Serial.print("BATERY: ");
+  Serial.println(analogRead(batteryVoltage_i));
 
   switch (BCP)
   {
@@ -84,10 +88,10 @@ byte batteryCheck()
     dualWrite(batteryState1_o, batteryState2_o, LOW, HIGH);
     break;
   case 51 ... 75:
-    dualWrite(batteryState1_o, batteryState2_o, HIGH, LOW);
+    dualWrite(batteryState1_o, batteryState2_o, HIGH, HIGH);
     break;
   case 76 ... 100:
-    dualWrite(batteryState1_o, batteryState2_o, LOW, LOW);
+    dualWrite(batteryState1_o, batteryState2_o, HIGH, HIGH);
     break;
   }
   return BCP;
@@ -116,7 +120,7 @@ void elevation()
   case 0: // STAND_BY
     dualWrite(up_o, down_o, LOW, LOW);
     elevationState = digitalRead(swUp_i) ? 1 : digitalRead(swDown_i) ? 2
-                                                                 : 0;
+                                                                     : 0;
     break;
   case 1: // UP
     dualWrite(up_o, down_o, HIGH, LOW);
@@ -154,25 +158,15 @@ void dataLog() {}
 //   button1.attachDuringLongPress(longPress);
 // }
 
-void ConveyorBegin()
+void EMERGENCY_STOP()
 {
-  for (byte i = 0; i < sizeof(DIGITAL_INPUTS); i++)
-  {
-    pinMode(DIGITAL_INPUTS[i], INPUT_PULLDOWN);
-  }
+  digitalWrite(power_o, LOW);
+  analogWrite(CSpeed_o, LOW);
+  digitalWrite(CReverse_o, LOW);
+
   for (byte i = 0; i < sizeof(DIGITAL_OUTPUTS); i++)
   {
     pinMode(DIGITAL_OUTPUTS[i], OUTPUT);
     digitalWrite(DIGITAL_OUTPUTS[i], LOW);
   }
-  // OneButtonBegin();
-}
-
-void EMERGENCY_STOP()
-{
-  digitalWrite(power_o, LOW);
-  digitalWrite(FWR_o, LOW);
-  digitalWrite(RWD_o, LOW);
-  digitalWrite(up_o, LOW);
-  digitalWrite(down_o, LOW);
 }
