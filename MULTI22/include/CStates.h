@@ -28,7 +28,7 @@ int ConveyorState(byte cState)
     switch (cState)
     {
     case S:
-        analogWrite(CSpeed_o, LOW);
+        analogWrite(CSpeed_o, VelMin);
         digitalWrite(CReverse_o, LOW);
         // ConveyorControl(VelMin);
         // dacWrite(CSpeed_o, ceil(VelMin));
@@ -54,7 +54,7 @@ int ConveyorState(byte cState)
 int StandBy()
 {
     digitalWrite(power_o, LOW);
-    analogWrite(CSpeed_o, LOW);
+    analogWrite(CSpeed_o, VelMin);
     digitalWrite(CReverse_o, LOW);
     oState = S;
     // batteryCheck();
@@ -99,7 +99,7 @@ int EStop()
 int Sleep()
 {
     digitalWrite(power_o, LOW);
-    analogWrite(CSpeed_o, LOW);
+    analogWrite(CSpeed_o, VelMin);
     digitalWrite(CReverse_o, LOW);
     oState = S;
     return state = (!digitalRead(start_i) && !digitalRead(eStop_i)) ? STAND_BY
