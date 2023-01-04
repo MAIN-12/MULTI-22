@@ -104,7 +104,7 @@ byte brakesState =       0;
 
 // ============= CONVEYOR VARIABLES ================================================
 const float ts = 5;
-const float VelMin = 0; //75
+const float VelMin = 75; //75
 const float VelMax = 160;
 float u_apri = VelMin;
 float u_apos = VelMin;
