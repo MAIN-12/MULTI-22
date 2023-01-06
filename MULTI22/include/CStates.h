@@ -114,16 +114,57 @@ int UndefinedState()
 
 void stateDebug()
 {
-    if (oldState != state)
+    if ((oldState != state) || (oldOState != oState))
     {
         oldState = state;
-        Serial.print("STATE: ");
-        Serial.println(state);
-    }
-    if (oldOState != oState)
-    {
-        oldOState = oState;
-        Serial.print("OPERATIONAL STATE: ");
-        Serial.println(oState);
+        Serial.print("General state: ");
+        Serial.print(state);
+        switch (state)
+        {
+        case 0:
+            Serial.print("Stand By");
+            break;
+        case 1:
+            Serial.print("Operational");
+            break;
+        case 2:
+            Serial.print("CHARGING");
+            break;
+        case 3:
+            Serial.print("E-STOP");
+            break;
+        case 4:
+            Serial.print("Sleeping");
+            Serial.print("....I got bored and fell asleep");
+            break;
+        default:
+            Serial.print("State Error");
+            break;
+        }
+
+        Serial.print(" | Conveyor state");
+
+        switch (oState)
+        {
+        case 0:
+            Serial.print("stand by");
+            break;
+        case 1:
+            Serial.print("FWR");
+            break;
+        case 2:
+            Serial.print("RWD");
+            break;
+
+        default:
+            Serial.print("conveyor state error");
+            break;
+        }
+        Serial.println("");
+
+        Serial.printlnf("Start Sw: %d | E-STOP p: %d | FWR p: %d | RWD p: %d | Stop p: %d ",digitalRead(start_i),digitalRead(eStop_i),digitalRead(CFWR_i),digitalRead(CRWD_i),digitalRead(CStop_i));
+        Serial.printlnf("power: %d | SPEED: %d | REVERS: %d ",digitalRead(power_o),digitalRead(CSpeed_o),digitalRead(CReverse_o));
+        // "you have %d hours to come to me",time
+
     }
 }
