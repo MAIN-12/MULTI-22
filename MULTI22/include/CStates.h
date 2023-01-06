@@ -54,7 +54,7 @@ int ConveyorState(byte cState)
 int StandBy()
 {
     digitalWrite(power_o, LOW);
-    analogWrite(CSpeed_o, VelMin);
+    analogWrite(CSpeed_o, LOW);
     digitalWrite(CReverse_o, LOW);
     oState = S;
     // batteryCheck();
