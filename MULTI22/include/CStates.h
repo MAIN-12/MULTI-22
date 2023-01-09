@@ -2,7 +2,6 @@
 
 void ConveyorStateCheck()
 {
-
     if (digitalRead(CStop_i))
     {
         // dacWrite(CSpeed_o, ceil(VelMin));
@@ -117,6 +116,7 @@ void stateDebug()
     if ((oldState != state) || (oldOState != oState))
     {
         oldState = state;
+        oldOState = oState;
         Serial.print("General state: ");
         Serial.print(state);
         switch (state)

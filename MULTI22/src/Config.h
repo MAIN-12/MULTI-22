@@ -90,8 +90,6 @@ char ID[]= "XXXX001MULTI22";
 #define FWR              1 //Operational state Foward
 #define BWR              2 //Operational state Backward
 
-
-
 byte state = STAND_BY;
 byte oState = S; //Operational Stae
 
