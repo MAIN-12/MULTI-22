@@ -69,7 +69,10 @@ void Coveyor()
 
 byte batteryCheck()
 {
-  byte BCP = map(analogRead(shunt_i), 100, 1023, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
+  bms.update();
+  float voltage = bms.get.packVoltage;
+
+  byte BCP = map(analogRead(voltage), batteryMaxVoltage, batteryMaxVoltage, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
 
   switch (BCP)
   {
@@ -116,7 +119,7 @@ void elevation()
   case 0: // STAND_BY
     dualWrite(up_o, down_o, LOW, LOW);
     elevationState = digitalRead(swUp_i) ? 1 : digitalRead(swDown_i) ? 2
-                                                                 : 0;
+                                                                     : 0;
     break;
   case 1: // UP
     dualWrite(up_o, down_o, HIGH, LOW);
