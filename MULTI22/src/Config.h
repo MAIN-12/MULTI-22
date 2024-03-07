@@ -110,11 +110,19 @@ float u_apos = VelMin;
 bool ReversState;
 
 //============== BATTERY ========================================================
-#define batteryMaxVoltage = 3.3; // [v]
-#define batteryMinVoltage = 3.8;  // [v]
+#define batteryMinVoltage = 38;     // [v]
+#define batteryMaxVoltage = 55;     // [v]
+#define batteryCharginVoltage = 58; // [v]
+
+#define BatteryLowLevel = 43;
+#define BatteryMidLevel = 45;
+#define BatteryFullCharge = 55;
 
 #define BMS_SERIAL Serial;
 // #define BMS_SERIAL Serial1;
+
+#define BatteryUseVoltage ;
+// #define BatteryUsePercentage ;
 
 Daly_BMS_UART bms(BMS_SERIAL);
 

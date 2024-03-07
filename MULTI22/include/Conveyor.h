@@ -67,7 +67,7 @@ void Coveyor()
 {
 }
 
-byte batteryCheck()
+byte batteryCheck_2ligths()
 {
   bms.update();
   float voltage = bms.get.packVoltage;
@@ -94,6 +94,40 @@ byte batteryCheck()
     break;
   }
   return BCP;
+}
+
+byte batteryCheck_3ligths()
+{
+  bms.update();
+  float voltage = bms.get.packVoltage;
+
+  byte BCP = map(analogRead(voltage), batteryMaxVoltage, batteryMaxVoltage, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
+
+  switch (BCP)
+  {
+  case 0 ... 25:
+    if (millis() - blinkMillis >= blinkInterval)
+    {
+      dualWrite(batteryState1_o, batteryState2_o, LOW, !digitalRead(batteryState2_o));
+      blinkMillis = millis();
+    }
+    break;
+  case 26 ... 50:
+    dualWrite(batteryState1_o, batteryState2_o, LOW, HIGH);
+    break;
+  case 51 ... 75:
+    dualWrite(batteryState1_o, batteryState2_o, HIGH, LOW);
+    break;
+  case 76 ... 100:
+    dualWrite(batteryState1_o, batteryState2_o, LOW, LOW);
+    break;
+  }
+  return BCP;
+}
+
+byte batteryCheck()
+{
+  return = batteryCheck_3ligths();
 }
 
 void brakes()
