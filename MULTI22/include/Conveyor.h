@@ -42,6 +42,13 @@ void dualWrite(byte pin1, byte pin2, byte S1, byte S2)
   digitalWrite(pin2, S2);
 }
 
+void TrafficLight(byte pin1, byte pin2, byte pin3, byte S1, byte S2, byte S3)
+{
+  digitalWrite(pin1, S1);
+  digitalWrite(pin2, S2);
+  digitalWrite(pin3, S3);
+}
+
 void ConveyorControl(float ref)
 {
   float Tau = ts / 5;
@@ -101,25 +108,27 @@ byte batteryCheck_3ligths()
   bms.update();
   float voltage = bms.get.packVoltage;
 
-  byte BCP = map(analogRead(voltage), batteryMaxVoltage, batteryMaxVoltage, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
+  float BCP = bms.get.packVoltage;
+
+  // byte BCP = map(analogRead(voltage), batteryMaxVoltage, batteryMaxVoltage, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
 
   switch (BCP)
   {
-  case 0 ... 25:
+  case 0 ... 10:
     if (millis() - blinkMillis >= blinkInterval)
     {
-      dualWrite(batteryState1_o, batteryState2_o, LOW, !digitalRead(batteryState2_o));
+      TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, !digitalRead(batteryRedLigth));
       blinkMillis = millis();
     }
     break;
-  case 26 ... 50:
-    dualWrite(batteryState1_o, batteryState2_o, LOW, HIGH);
+  case 26 ... BatteryLowLevel:
+    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
     break;
-  case 51 ... 75:
-    dualWrite(batteryState1_o, batteryState2_o, HIGH, LOW);
+  case BatteryLowLevel ... BatteryMidLevel:
+    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, HIGH, LOW);
     break;
-  case 76 ... 100:
-    dualWrite(batteryState1_o, batteryState2_o, LOW, LOW);
+  case BatteryMidLevel ... batteryMaxVoltage:
+    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, HIGH, LOW, LOW);
     break;
   }
   return BCP;
