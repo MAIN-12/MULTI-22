@@ -108,13 +108,13 @@ byte batteryCheck_3ligths()
   bms.update();
   float voltage = bms.get.packVoltage;
 
-  float BCP = bms.get.packVoltage;
+  byte BCP = int(voltage);
 
   // byte BCP = map(analogRead(voltage), batteryMaxVoltage, batteryMaxVoltage, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
 
   switch (BCP)
   {
-  case 0 ... 10:
+  case 0 ... 39:
     if (millis() - blinkMillis >= blinkInterval)
     {
       TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, !digitalRead(batteryRedLigth));
@@ -122,15 +122,15 @@ byte batteryCheck_3ligths()
       Serial.println("Blinking Red Light");
     }
     break;
-  case 26 ... BatteryLowLevel:
+  case 40 ... 42:
     TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
     Serial.println("Red Light");
     break;
-  case BatteryLowLevel ... BatteryMidLevel:
+  case 43 ... 45:
     TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, HIGH, LOW);
     Serial.println("Yellow Light");
     break;
-  case BatteryMidLevel ... batteryMaxVoltage:
+  case 46 ... 55:
     TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, HIGH, LOW, LOW);
     Serial.println("Green Light");
     break;
@@ -140,7 +140,7 @@ byte batteryCheck_3ligths()
 
 byte batteryCheck()
 {
-  return = batteryCheck_3ligths();
+  return batteryCheck_3ligths();
 }
 
 void brakes()
