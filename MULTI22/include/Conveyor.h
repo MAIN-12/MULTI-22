@@ -119,16 +119,20 @@ byte batteryCheck_3ligths()
     {
       TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, !digitalRead(batteryRedLigth));
       blinkMillis = millis();
+      Serial.println("Blinking Red Light");
     }
     break;
   case 26 ... BatteryLowLevel:
     TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
+    Serial.println("Red Light");
     break;
   case BatteryLowLevel ... BatteryMidLevel:
     TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, HIGH, LOW);
+    Serial.println("Yellow Light");
     break;
   case BatteryMidLevel ... batteryMaxVoltage:
     TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, HIGH, LOW, LOW);
+    Serial.println("Green Light");
     break;
   }
   return BCP;
