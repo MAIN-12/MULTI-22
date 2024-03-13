@@ -69,12 +69,11 @@ void ConveyorControl(float ref)
   delay(delta * 1000);
 }
 
-byte batteryCheck()
+byte batteryCheck_2ligths()
 {
-  byte BCP = map(analogRead(batteryVoltage_i), 0, 1023, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
-  Serial.print("BATERY: ");
-  Serial.println(analogRead(batteryVoltage_i));
-
+  bms.update();
+  float voltage = bms.get.packVoltage;
+  byte BCP = map(analogRead(voltage), batteryMaxVoltage, batteryMaxVoltage, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
   switch (BCP)
   {
   case 0 ... 25:
@@ -88,13 +87,49 @@ byte batteryCheck()
     dualWrite(batteryState1_o, batteryState2_o, LOW, HIGH);
     break;
   case 51 ... 75:
-    dualWrite(batteryState1_o, batteryState2_o, HIGH, HIGH);
+    dualWrite(batteryState1_o, batteryState2_o, HIGH, LOW);
     break;
   case 76 ... 100:
-    dualWrite(batteryState1_o, batteryState2_o, HIGH, HIGH);
+    dualWrite(batteryState1_o, batteryState2_o, LOW, LOW);
     break;
   }
   return BCP;
+}
+byte batteryCheck_3ligths()
+{
+  bms.update();
+  float voltage = bms.get.packVoltage;
+  byte BCP = int(voltage);
+  // byte BCP = map(analogRead(voltage), batteryMaxVoltage, batteryMaxVoltage, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
+  switch (BCP)
+  {
+  case 0 ... 39:
+    if (millis() - blinkMillis >= blinkInterval)
+    {
+      TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, !digitalRead(batteryRedLigth));
+      blinkMillis = millis();
+      Serial.println("Blinking Red Light");
+    }
+    break;
+  case 40 ... 42:
+    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
+    Serial.println("Red Light");
+    break;
+  case 43 ... 45:
+    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, HIGH, LOW);
+    Serial.println("Yellow Light");
+    break;
+  case 46 ... 55:
+    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, HIGH, LOW, LOW);
+    Serial.println("Green Light");
+    break;
+  }
+  return BCP;
+}
+byte batteryCheck()
+{
+  Serial.println("Battery Check in:");
+  return batteryCheck_3ligths();
 }
 
 void brakes()
