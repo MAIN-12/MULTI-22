@@ -140,6 +140,7 @@ byte batteryCheck_3ligths()
 
 byte batteryCheck()
 {
+  Serial.println("Battery Check in:");
   return batteryCheck_3ligths();
 }
 
