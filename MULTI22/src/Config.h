@@ -31,6 +31,7 @@
 #else
 #include "WProgram.h"
 #endif
+#include <daly-bms-uart.h>
 
 // extern "C"
 // {
