@@ -45,6 +45,12 @@ void dualWrite(byte pin1, byte pin2, byte S1, byte S2)
   digitalWrite(pin1, S1);
   digitalWrite(pin2, S2);
 }
+void TrafficLight(byte pin1, byte pin2, byte pin3, byte S1, byte S2, byte S3)
+{
+  digitalWrite(pin1, S1);
+  digitalWrite(pin2, S2);
+  digitalWrite(pin3, S3);
+}
 
 void ConveyorControl(float ref)
 {
