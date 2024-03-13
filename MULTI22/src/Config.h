@@ -124,6 +124,19 @@ uintmax_t brakeMillis =       0;
 const int blinkInterval =   500;
 const int brakeTime =      1000;
 
+//============== BATTERY ========================================================
+float batteryMinVoltage = 38;     // [v]
+float batteryMaxVoltage = 55;     // [v]
+float batteryCharginVoltage = 58; // [v]
+byte BatteryLowLevel = 43;
+byte BatteryMidLevel = 45;
+byte BatteryFullCharge = 55;
+#define BMS_SERIAL Serial
+// #define BMS_SERIAL Serial1
+Daly_BMS_UART bms(BMS_SERIAL);
+// #define BatteryUseVoltage
+// #define BatteryUsePercentage ;
+
 // =============== SETTINGS =====================================================
 // byte DIGITAL_INPUTS[] = {start_i, eStop_i, CFWR_i, CRWD_i, CStop_i, swUp_i, swDown_i, limitUp_i, limitDown_i, swBeacon_i, swReflector_i, charger_i, sw1_i, sw2_i, sw3_i, sw4_i }; //
 // byte DIGITAL_OUTPUTS[] = {beacon_o, reflector_o, up_o, down_o, FWR_o, RWD_o, batteryState1_o, batteryState2_o, generalState1_o, generalState2_o};//
