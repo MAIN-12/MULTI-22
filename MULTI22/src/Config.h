@@ -69,8 +69,7 @@ char ID[]= "XXXX001MULTI22";
 #define power_o 	       8 // Enables the power of all subsystems
 #define CSpeed_o           5 // Conveyor speed output pin [PWM]
 #define CReverse_o         4 // Conveyor speed output pin 
-#define batteryState1_o    6 // Battery indicator color 1 output pin 
-#define batteryState2_o    7 // Battery indicator color 2 output pin
+
 #define beacon_o           0 // Beacon light output pin
 #define reflector_o        0 // Reflector light output pin
 #define up_o               0 // Up output pin
@@ -79,6 +78,14 @@ char ID[]= "XXXX001MULTI22";
 #define RWD_o              0 // Rewind output pin
 #define brakeIn_o          0 // Brake IN output pin 
 #define breakeOut_o        0 // Brake OUT output pin
+
+#define batteryState1_o 0 // Battery indicator color 1 output pin
+#define batteryState2_o 2 // Battery indicator color 2 output pin
+#define batteryGreenLigth 0  // Battery indicator color 1 output pin
+#define batteryYellowLigth 0 // Battery indicator color 1 output pin
+#define batteryRedLigth 0    // Battery indicator color 1 output pin
+#define generalState1_o 0 // General state color 1 output pin
+#define generalState2_o 0 // General state color 2 output pin
 
 // ================== STATES ====================================================
 #define STAND_BY         0 // main FSM state 1
