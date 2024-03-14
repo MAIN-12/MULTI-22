@@ -162,8 +162,8 @@ void stateDebug()
         }
         Serial.println("");
 
-        Serial.printlnf("Start Sw: %d | E-STOP p: %d | FWR p: %d | RWD p: %d | Stop p: %d ",digitalRead(start_i),digitalRead(eStop_i),digitalRead(CFWR_i),digitalRead(CRWD_i),digitalRead(CStop_i));
-        Serial.printlnf("power: %d | SPEED: %d | REVERS: %d ",digitalRead(power_o),digitalRead(CSpeed_o),digitalRead(CReverse_o));
+        // Serial.printlnf("Start Sw: %d | E-STOP p: %d | FWR p: %d | RWD p: %d | Stop p: %d ",digitalRead(start_i),digitalRead(eStop_i),digitalRead(CFWR_i),digitalRead(CRWD_i),digitalRead(CStop_i));
+        // Serial.printlnf("power: %d | SPEED: %d | REVERS: %d ",digitalRead(power_o),digitalRead(CSpeed_o),digitalRead(CReverse_o));
         // "you have %d hours to come to me",time
 
     }

@@ -64,6 +64,6 @@ void loop()
   case SLEEP:     Sleep();          break;
   default:        UndefinedState(); break;
   }
-  // batteryCheck();
-  stateDebug();
+  batteryCheck();
+  // stateDebug();
 }
