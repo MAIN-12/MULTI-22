@@ -51,19 +51,32 @@ void setup()
   attachInterrupt(CStop_i, ConveyorStateCheck, CHANGE);
   attachInterrupt(CFWR_i, ConveyorStateCheck, CHANGE);
   attachInterrupt(CRWD_i, ConveyorStateCheck, CHANGE);
-  bms.Init();
+
+  BMSSerialInitialize();
 }
 
 void loop()
 {
   switch (state)
   {
-  case STAND_BY:  StandBy();        break;
-  case OPERATION: Operation();      break;
-  case CHARGING:  Charging();       break;
-  case E_STOP:    EStop();          break;
-  case SLEEP:     Sleep();          break;
-  default:        UndefinedState(); break;
+  case STAND_BY:
+    StandBy();
+    break;
+  case OPERATION:
+    Operation();
+    break;
+  case CHARGING:
+    Charging();
+    break;
+  case E_STOP:
+    EStop();
+    break;
+  case SLEEP:
+    Sleep();
+    break;
+  default:
+    UndefinedState();
+    break;
   }
   batteryCheck();
   // stateDebug();

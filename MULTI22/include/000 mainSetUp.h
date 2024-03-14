@@ -43,7 +43,7 @@ void ConveyorBegin()
 
 void MainSetUp()
 {
-    Serial.begin(115200);
+    Serial.begin(9600);
     while (!Serial)
         ;
     Main12();
