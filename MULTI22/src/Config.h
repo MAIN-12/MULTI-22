@@ -142,8 +142,8 @@ byte BatteryLowLevel = 43;
 byte BatteryMidLevel = 45;
 byte BatteryFullCharge = 55;
 
-const int rxPin = 11; // Define custom RX pin
-const int txPin = 12; // Define custom TX pin
+const int rxPin = 11; // Define custom RX pin ...
+const int txPin = 12; // Define custom TX pin ...
 SoftwareSerial customSerial(rxPin, txPin); 
 
 // #define BMS_SERIAL Serial
