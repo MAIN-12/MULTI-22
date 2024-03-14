@@ -51,6 +51,7 @@ void setup()
   attachInterrupt(CStop_i, ConveyorStateCheck, CHANGE);
   attachInterrupt(CFWR_i, ConveyorStateCheck, CHANGE);
   attachInterrupt(CRWD_i, ConveyorStateCheck, CHANGE);
+  bms.Init();
 }
 
 void loop()
