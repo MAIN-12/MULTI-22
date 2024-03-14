@@ -49,8 +49,8 @@ char ID[]= "XXXX001MULTI22";
 #define CFWR_i            A0 // Conveyor Forward switch input pin 
 #define CRWD_i            A1 // Conveyor Rewind switch input pin
 #define CStop_i           A2 // Conveyor stop switch input pin 
-#define batteryVoltage_i  A6 // Shunt sensor input pin
-#define charger_i         A7 // Charger input pin
+#define batteryVoltage_i   0 // Shunt sensor input pin
+#define charger_i          0 // Charger input pin
 #define swUp_i             0 // Up switch input pin
 #define swDown_i           0 // Down switch input pin
 #define limitUp_i          0 // Limit end switch input pin
@@ -79,13 +79,13 @@ char ID[]= "XXXX001MULTI22";
 #define brakeIn_o          0 // Brake IN output pin 
 #define breakeOut_o        0 // Brake OUT output pin
 
-#define batteryState1_o 0 // Battery indicator color 1 output pin
-#define batteryState2_o 2 // Battery indicator color 2 output pin
-#define batteryGreenLigth 0  // Battery indicator color 1 output pin
-#define batteryYellowLigth 0 // Battery indicator color 1 output pin
-#define batteryRedLigth 0    // Battery indicator color 1 output pin
-#define generalState1_o 0 // General state color 1 output pin
-#define generalState2_o 0 // General state color 2 output pin
+#define batteryState1_o      0 // Battery indicator color 1 output pin
+#define batteryState2_o      2 // Battery indicator color 2 output pin
+#define batteryGreenLigth    0  // Battery indicator color 1 output pin
+#define batteryYellowLigth   0 // Battery indicator color 1 output pin
+#define batteryRedLigth      0    // Battery indicator color 1 output pin
+#define generalState1_o      0 // General state color 1 output pin
+#define generalState2_o      0 // General state color 2 output pin
 
 // ================== STATES ====================================================
 #define STAND_BY         0 // main FSM state 1
@@ -142,8 +142,8 @@ byte BatteryLowLevel = 43;
 byte BatteryMidLevel = 45;
 byte BatteryFullCharge = 55;
 
-const int rxPin = 2; // Define custom RX pin
-const int txPin = 3; // Define custom TX pin
+const int rxPin = 11; // Define custom RX pin
+const int txPin = 12; // Define custom TX pin
 SoftwareSerial customSerial(rxPin, txPin); 
 
 // #define BMS_SERIAL Serial
