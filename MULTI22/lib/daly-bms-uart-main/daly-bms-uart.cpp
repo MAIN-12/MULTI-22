@@ -1,5 +1,6 @@
 #include "Arduino.h"
 #include "daly-bms-uart.h"
+#include <SoftwareSerial.h>
 
 // Uncomment the below define to enable debug printing
 // #define DEBUG_SERIAL Serial
@@ -8,8 +9,8 @@
 // Public Functions
 //----------------------------------------------------------------------
 
-Daly_BMS_UART::Daly_BMS_UART(HardwareSerial &serial_peripheral)
-{
+// Daly_BMS_UART::Daly_BMS_UART(HardwareSerial &serial_peripheral)
+Daly_BMS_UART::Daly_BMS_UART(SoftwareSerial &serial_peripheral) {
     this->my_serialIntf = &serial_peripheral;
 }
 
@@ -30,7 +31,7 @@ bool Daly_BMS_UART::Init()
     }
 
     // Initialize the serial link to 9600 baud with 8 data bits and no parity bits, per the Daly BMS spec
-    this->my_serialIntf->begin(9600, SERIAL_8N1);
+    this->my_serialIntf->begin(9600);
 
     // Set up the output buffer with some values that won't be changing
     this->my_txBuffer[0] = 0xA5; // Start byte

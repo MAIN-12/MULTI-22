@@ -132,8 +132,8 @@ const int blinkInterval =   500;
 const int brakeTime =      1000;
 
 //============== BATTERY ========================================================
-#include <daly-bms-uart.h>
 #include <SoftwareSerial.h>
+#include <daly-bms-uart.h>
 
 float batteryMinVoltage = 38;     // [v]
 float batteryMaxVoltage = 55;     // [v]
@@ -142,15 +142,16 @@ byte BatteryLowLevel = 43;
 byte BatteryMidLevel = 45;
 byte BatteryFullCharge = 55;
 
-const int customSerialRxPin = 2; // RX pin for custom serial communication
-const int customSerialTxPin = 3; // TX pin for custom serial communication
-SoftwareSerial customSerial(customSerialRxPin, customSerialTxPin);
+const int rxPin = 2; // Define custom RX pin
+const int txPin = 3; // Define custom TX pin
+SoftwareSerial customSerial(rxPin, txPin); 
 
-#define BMS_SERIAL Serial
+// #define BMS_SERIAL Serial
 // #define BMS_SERIAL Serial1
 // #define BMS_SERIAL customSerial
 
-Daly_BMS_UART bms(BMS_SERIAL);
+// Daly_BMS_UART bms(BMS_SERIAL);
+Daly_BMS_UART bms(customSerial);
 
 
 void BMSSerialInitialize(){

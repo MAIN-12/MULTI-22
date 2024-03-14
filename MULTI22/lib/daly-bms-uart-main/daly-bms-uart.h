@@ -6,6 +6,7 @@
 #define MAX_NUMBER_CELLS 48
 #define MIN_NUMBER_TEMP_SENSORS 1
 #define MAX_NUMBER_TEMP_SENSORS 16
+#include <SoftwareSerial.h>
 
 class Daly_BMS_UART
 {
@@ -154,7 +155,8 @@ public:
      *
      * @param serialIntf UART interface BMS is connected to
      */
-    Daly_BMS_UART(HardwareSerial &serialIntf);
+    // Daly_BMS_UART(HardwareSerial &serialIntf);
+    Daly_BMS_UART(SoftwareSerial &serial_peripheral);
 
     /**
      * @brief Initializes this driver
@@ -250,6 +252,7 @@ public:
     bool setBmsReset();
 
 private:
+    
     /**
      * @brief Sends a complete packet with the specified command
      * @details calculates the checksum and sends the command over the specified serial connection
@@ -279,7 +282,8 @@ private:
      * @brief Serial interface used for communication
      * @details This is set in the constructor
      */
-    HardwareSerial *my_serialIntf;
+    // HardwareSerial *my_serialIntf;
+    SoftwareSerial *my_serialIntf;
 
     /**
      * @brief Buffer used to transmit data to the BMS
