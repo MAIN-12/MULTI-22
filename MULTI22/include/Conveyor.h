@@ -105,7 +105,15 @@ byte batteryCheck_3ligths()
 {
   bms.update();
   float voltage = bms.get.packVoltage;
+  Serial.print("Battery voltage: ");
+  Serial.print(voltage);
+  Serial.print("  |  ");
   byte BCP = int(voltage);
+
+  Serial.print("BPC: ");
+  Serial.print(BCP);
+  Serial.print("  |  ");
+
   // byte BCP = map(analogRead(voltage), batteryMaxVoltage, batteryMaxVoltage, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
   switch (BCP)
   {
