@@ -81,11 +81,12 @@ char ID[]= "XXXX001MULTI22";
 
 #define batteryState1_o      0 // Battery indicator color 1 output pin
 #define batteryState2_o      2 // Battery indicator color 2 output pin
-#define batteryGreenLigth    0  // Battery indicator color 1 output pin
-#define batteryYellowLigth   0 // Battery indicator color 1 output pin
-#define batteryRedLigth      0    // Battery indicator color 1 output pin
 #define generalState1_o      0 // General state color 1 output pin
 #define generalState2_o      0 // General state color 2 output pin
+
+#define batteryGreenLigth    A5  // Battery indicator color 1 output pin
+#define batteryYellowLigth   A4 // Battery indicator color 1 output pin
+#define batteryRedLigth      9    // Battery indicator color 1 output pin
 
 // ================== STATES ====================================================
 #define STAND_BY         0 // main FSM state 1

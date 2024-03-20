@@ -118,16 +118,18 @@ byte batteryCheck_3ligths()
   switch (BCP)
   {
   case 0 ... 39:
+    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
+    Serial.println("Red Light");
+    break;
+  case 40 ... 42:
+
     if (millis() - blinkMillis >= blinkInterval)
     {
       TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, !digitalRead(batteryRedLigth));
       blinkMillis = millis();
       Serial.println("Blinking Red Light");
     }
-    break;
-  case 40 ... 42:
-    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
-    Serial.println("Red Light");
+
     break;
   case 43 ... 45:
     TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, HIGH, LOW);
