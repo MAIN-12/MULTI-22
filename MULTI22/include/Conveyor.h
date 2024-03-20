@@ -160,6 +160,7 @@ byte bateryLightTesting()
   delay(500);
   TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, LOW);
   delay(500);
+  return 0;
 }
 byte batteryCheck()
 {
