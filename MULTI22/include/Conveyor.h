@@ -142,10 +142,40 @@ byte batteryCheck_3ligths()
   }
   return BCP;
 }
+byte bateryLightTesting()
+{
+  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, HIGH, LOW, LOW);
+  delay(1500);
+  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, HIGH, LOW);
+  delay(1500);
+  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
+  delay(500);
+  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, LOW);
+  delay(500);
+  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
+  delay(500);
+  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, LOW);
+  delay(500);
+  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
+  delay(500);
+  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, LOW);
+  delay(500);
+}
 byte batteryCheck()
 {
-  Serial.println("Battery Check in:");
-  return batteryCheck_3ligths();
+  unsigned long currentMillis = millis(); // Get the current time
+
+  // Check if it's time to run the function
+  if (currentMillis - batteryPreviousMillis >= bateryInterval)
+  {
+    // Save the current time for the next interval
+    batteryPreviousMillis = bateryInterval;
+
+    Serial.println("Battery Check in:");
+    return batteryCheck_3ligths();
+  }
+  else
+    return
 }
 
 void brakes()

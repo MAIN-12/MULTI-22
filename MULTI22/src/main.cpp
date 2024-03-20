@@ -79,5 +79,6 @@ void loop()
     break;
   }
   batteryCheck();
+  // bateryLightTesting();
   // stateDebug();
 }
