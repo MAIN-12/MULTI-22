@@ -120,13 +120,15 @@ byte batteryCheck_3ligths()
   case 0 ... 39:
     if (millis() - blinkMillis >= blinkInterval)
     {
-      TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, !digitalRead(batteryRedLigth));
+      // TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, !digitalRead(batteryRedLigth));
+      TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
       blinkMillis = millis();
       Serial.println("Blinking Red Light");
     }
     break;
   case 40 ... 42:
-    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
+    // TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
+    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, !digitalRead(batteryRedLigth));
     Serial.println("Red Light");
     break;
   case 43 ... 45:
