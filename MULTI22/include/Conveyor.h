@@ -175,8 +175,9 @@ byte batteryCheck()
     Serial.println("Battery Check in:");
     return batteryCheck_3ligths();
   }
-  else
-    return
+  else{
+    return 0;
+  }
 }
 
 void brakes()
