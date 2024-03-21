@@ -164,10 +164,8 @@ byte bateryLightTesting()
 }
 byte batteryCheck()
 {
-  unsigned long currentMillis = millis(); // Get the current time
-
   // Check if it's time to run the function
-  if (currentMillis - batteryPreviousMillis >= bateryInterval)
+  if (millis() - batteryPreviousMillis >= bateryInterval)
   {
     // Save the current time for the next interval
     batteryPreviousMillis = bateryInterval;
