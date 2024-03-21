@@ -168,12 +168,13 @@ byte batteryCheck()
   if (millis() - batteryPreviousMillis >= bateryInterval)
   {
     // Save the current time for the next interval
-    batteryPreviousMillis = bateryInterval;
+    batteryPreviousMillis = millis();
 
     Serial.println("Battery Check in:");
     return batteryCheck_3ligths();
   }
-  else{
+  else
+  {
     return 0;
   }
 }
