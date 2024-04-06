@@ -38,7 +38,7 @@
 // }
 
 // =============== CODE VERSION =================================================
-const String version = "3.0.0";
+const String version = "3.0.2";
 char update[] = "09-20-2024";
 char ID[] = "XXXX001MULTI22";
 
@@ -88,14 +88,6 @@ char ID[] = "XXXX001MULTI22";
 #define batteryRedLigth 9     // Battery indicator color 1 output pin
 
 // ================== STATES ====================================================
-// #define STAND_BY         0 // main FSM state 1
-// #define OPERATION        1 // main FSM state 2
-// #define CHARGING         2 // main FSM state 3
-// #define E_STOP           3 // main FSM state 4
-// #define SLEEP            4 // main FSM state 5
-// #define S                0 //Operational state Stop
-// #define FWR              1 //Operational state Foward
-// #define BWR              2 //Operational state Backward
 
 enum MainFSMState
 {
@@ -106,18 +98,17 @@ enum MainFSMState
     SLEEP = 4      // main FSM state 5
 };
 
-enum ConveyorState
+enum ConveyorFSMSState
 {
-    S = 0,   // Operational state Stop
+    STOP = 0,   // Operational state Stop
     FWR = 1, // Operational state Forward
     BWR = 2  // Operational state Backward
 };
 
 MainFSMState state = STAND_BY;
-ConveyorState oState = S; 
-
-byte oldState = -1;
-byte oldOState = -1;
+MainFSMState oldState = STAND_BY;
+ConveyorFSMSState oState = STOP;
+ConveyorFSMSState oldOState = STOP;
 
 byte elevationState = 0;
 byte brakesState = 0;

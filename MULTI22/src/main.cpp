@@ -34,8 +34,19 @@ void setup()
   attachInterrupt(CFWR_i, ConveyorStateCheck, CHANGE);
   attachInterrupt(CRWD_i, ConveyorStateCheck, CHANGE);
 
-  StandBy();
-  state = OPERATION;
+
+  bms.update();
+  float voltage = bms.get.packVoltage;
+
+  LogEntry conveyorInit;
+  conveyorInit.timestamp = millis();
+  conveyorInit.codeVersion = version;
+  conveyorInit.setState(getGeneralState(), getConveyorState());
+  conveyorInit.battery.state = bms.get.packSOC;
+  conveyorInit.battery.voltage = bms.get.packVoltage;
+  conveyorInit.battery.current = bms.get.packCurrent;
+  conveyorInit.battery.temp = bms.get.tempAverage;
+  printLogEntry(conveyorInit);
 }
 
 void loop()
@@ -46,10 +57,9 @@ void loop()
   conveyourMain();
   conveyor.codeVersion = version;
   conveyor.timestamp = millis();
-
   conveyor.setState(getGeneralState(), getConveyorState());
 
-  conveyor.batteryStatus = batteryCheck();
+  conveyor.battery.voltage = batteryCheck();
   printLogEntry(conveyor);
 
   // writeToSD(conveyor);

@@ -17,7 +17,7 @@ void ConveyorStateCheck()
         // dacWrite(CSpeed_o, ceil(VelMin));
         // analogWrite(CSpeed_o, ceil(VelMin));
         waitMillis = millis();
-        oState = S;
+        oState = STOP;
     }
     else if (digitalRead(CFWR_i))
     {
@@ -33,11 +33,11 @@ void ConveyorStateCheck()
 }
 
 
-int ConveyorState(byte cState)
+int setConveyorState(byte cState)
 {
     switch (cState)
     {
-    case S:
+    case STOP:
         analogWrite(CSpeed_o, VelMin);
         digitalWrite(CReverse_o, LOW);
         // ConveyorControl(VelMin);
@@ -66,7 +66,7 @@ int StandBy()
     digitalWrite(power_o, LOW);
     analogWrite(CSpeed_o, LOW);
     digitalWrite(CReverse_o, LOW);
-    oState = S;
+    oState = STOP;
     // batteryCheck();
 
     state = (digitalRead(start_i) && !digitalRead(eStop_i)) ? OPERATION
@@ -81,7 +81,7 @@ int Operation()
 {
     digitalWrite(power_o, HIGH);
     ConveyorStateCheck();
-    ConveyorState(oState);
+    setConveyorState(oState);
     // elevation();
     // batteryCheck();
     // illumination();
@@ -111,7 +111,7 @@ int Sleep()
     digitalWrite(power_o, LOW);
     analogWrite(CSpeed_o, VelMin);
     digitalWrite(CReverse_o, LOW);
-    oState = S;
+    oState = STOP;
     return state = (!digitalRead(start_i) && !digitalRead(eStop_i)) ? STAND_BY
                                                                     : E_STOP;
 }

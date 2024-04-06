@@ -8,8 +8,15 @@ struct LogEntry
     unsigned long timestamp;
     int generalState;
     int conveyorState;
-    int batteryStatus;
-    int batteryVoltage;
+
+    struct BatteryProperties
+    {
+        int status;
+        float voltage;
+        float current;
+        float temp;
+    } battery;
+
     int errorCode[12];
 
     bool variablesUpdated;
@@ -72,10 +79,19 @@ void printLogEntry(const LogEntry &entry)
         Serial.print(entry.generalState);
         Serial.print(" | Conveyor State: ");
         Serial.print(entry.conveyorState);
-        Serial.print(" | Battery Voltage: ");
-        Serial.println(entry.batteryVoltage);
+        Serial.println();
+        Serial.print("Battery Status: ");
+        Serial.println(entry.battery.status);
+        Serial.print(" | Voltage: ");
+        Serial.print(entry.battery.voltage);
+        Serial.print(" | Current: ");
+        Serial.print(entry.battery.current);
+        Serial.print(" | Temperature: ");
+        Serial.print(entry.battery.temperature);
 
+        // Reset the flag after printing
         entry.resetUpdatedFlag();
     }
 }
+
 #endif // LOG_FUNCTIONS_H
