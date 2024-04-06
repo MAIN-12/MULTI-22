@@ -1,7 +1,6 @@
 /* ==============================================================================
  * Script by: Juan Carlos Botero
  * Date: 04/06/2024
- * Version: 3.0.0
  * ==============================================================================
  *                         Copyright (c) 2024 MAIN 12 LLC
  * ==============================================================================
@@ -23,6 +22,7 @@
  * MIT License
  * Copyright (c) 2024 MAIN 12 LLC
  */
+#define Version "3.0.1"
 
 #include <CStates.h>
 #include "log_functions.h"
@@ -30,6 +30,7 @@
 void setup()
 {
   setupMain();
+  printHeader(Version);
   attachInterrupt(CStop_i, ConveyorStateCheck, CHANGE);
   attachInterrupt(CFWR_i, ConveyorStateCheck, CHANGE);
   attachInterrupt(CRWD_i, ConveyorStateCheck, CHANGE);
