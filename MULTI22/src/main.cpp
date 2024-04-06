@@ -44,6 +44,7 @@ void setup()
   conveyor.battery.voltage = bms.get.packVoltage;
   conveyor.battery.current = bms.get.packCurrent;
   conveyor.battery.temp = bms.get.tempAverage;
+  conveyor.update();
   printLogEntry(conveyor);
 }
 
