@@ -144,14 +144,8 @@ byte batteryCheck()
   {
     // Save the current time for the next interval
     batteryPreviousMillis = millis();
-    byte batteryTest = batteryCheck_3ligths();
 
-    if (debugMode)
-    {
-      Serial.print("Battery Check: ");
-      Serial.println(batteryTest);
-    }
-    return batteryTest;
+    return batteryCheck_3ligths();
   }
   else
   {

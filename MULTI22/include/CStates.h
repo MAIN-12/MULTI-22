@@ -1,5 +1,15 @@
 #include <Conveyor.h>
 
+int getConveyorState()
+{
+    return oState;
+}
+
+int getGeneralState()
+{
+    return state;
+}
+
 void ConveyorStateCheck()
 {
     if (digitalRead(CStop_i))
@@ -21,6 +31,7 @@ void ConveyorStateCheck()
         oState = BWR;
     }
 }
+
 
 int ConveyorState(byte cState)
 {
@@ -135,6 +146,7 @@ int conveyourMain()
         return UndefinedState();
     }
 }
+
 void stateDebug()
 {
     if ((oldState != state) || (oldOState != oState))

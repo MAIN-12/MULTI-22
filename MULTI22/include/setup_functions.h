@@ -4,7 +4,11 @@
 #include "Arduino.h"
 #include <Config.h>
 
+#ifdef Debug_Mode
 bool debugMode = true;
+#else
+bool debugMode = false;
+#endif
 
 void printHeader()
 {
@@ -15,7 +19,7 @@ void printHeader()
     Serial.println("===========================================");
     Serial.println();
     Serial.println("Script by: Juan C Botero");
-     Serial.print("Version: ");
+    Serial.print("Version: ");
     Serial.println(version);
     Serial.println("               [ main12.com ]              ");
     Serial.println();
@@ -37,7 +41,8 @@ void configureConveyorPins()
 void setupMain(int baud = 9600)
 {
     Serial.begin(baud);
-    while (!Serial);
+    while (!Serial)
+        ;
     printHeader();
     configureConveyorPins();
     initializeBMSviaSerial();

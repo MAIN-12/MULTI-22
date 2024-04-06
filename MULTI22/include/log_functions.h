@@ -3,12 +3,31 @@
 
 struct LogEntry
 {
-    String codeVersion; // Code version as a string
+    String codeVersion;
     int status;
-    unsigned long timestamp; // Time of the log entry (in milliseconds since start)
-    int state;               // State of the conveyor
-    int batteryStatus;       // Battery status
+    unsigned long timestamp;
+    int generalState;
+    int conveyorState;
+    int batteryStatus;
+    int batteryVoltage;
     int errorCode[12];
+
+    bool variablesUpdated;
+
+    void setState(int newGeneralState, int newConveyorState)
+    {
+        if (generalState != newGeneralState || conveyorState != newConveyorState)
+        {
+            generalState = newGeneralState;
+            conveyorState = newConveyorState;
+            variablesUpdated = true;
+        }
+    }
+
+    void resetUpdatedFlag()
+    {
+        variablesUpdated = false;
+    }
 };
 
 void processSerialCommands()
@@ -45,23 +64,18 @@ int previousState = -1;
 
 void printLogEntry(const LogEntry &entry)
 {
-    if (debugMode)
+    if (debugMode && entry.variablesUpdated)
     {
-        // Check if the current state is different from the previous state
-        if (entry.state != previousState)
-        {
-            // Print only if the state changes
-            Serial.print("Code Version: ");
-            Serial.print(entry.codeVersion);
-            Serial.print(" | Timestamp: ");
-            Serial.print(entry.timestamp);
-            Serial.print(" | State: ");
-            Serial.println(entry.state);
-            Serial.print(" | Battery Status: ");
-            Serial.println(entry.batteryStatus);
+        Serial.print("Timestamp: ");
+        Serial.print(entry.timestamp);
+        Serial.print(" | General State: ");
+        Serial.print(entry.generalState);
+        Serial.print(" | Conveyor State: ");
+        Serial.print(entry.conveyorState);
+        Serial.print(" | Battery Voltage: ");
+        Serial.println(entry.batteryVoltage);
 
-            previousState = entry.state;
-        }
+        entry.resetUpdatedFlag();
     }
 }
 #endif // LOG_FUNCTIONS_H
