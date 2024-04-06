@@ -57,27 +57,7 @@ void setup()
 
 void loop()
 {
-  switch (state)
-  {
-  case STAND_BY:
-    StandBy();
-    break;
-  case OPERATION:
-    Operation();
-    break;
-  case CHARGING:
-    Charging();
-    break;
-  case E_STOP:
-    EStop();
-    break;
-  case SLEEP:
-    Sleep();
-    break;
-  default:
-    UndefinedState();
-    break;
-  }
+  conveyourMain();
   batteryCheck();
   // bateryLightTesting();
   //  stateDebug();

@@ -111,6 +111,24 @@ int UndefinedState()
     return state = STAND_BY;
 }
 
+int conveyourMain()
+{
+    switch (state)
+    {
+    case STAND_BY:
+        return StandBy();
+    case OPERATION:
+        return Operation();
+    case CHARGING:
+        return Charging();
+    case E_STOP:
+        return EStop();
+    case SLEEP:
+        return Sleep();
+    default:
+        return UndefinedState();
+    }
+}
 void stateDebug()
 {
     if ((oldState != state) || (oldOState != oState))
@@ -165,6 +183,5 @@ void stateDebug()
         // Serial.printlnf("Start Sw: %d | E-STOP p: %d | FWR p: %d | RWD p: %d | Stop p: %d ",digitalRead(start_i),digitalRead(eStop_i),digitalRead(CFWR_i),digitalRead(CRWD_i),digitalRead(CStop_i));
         // Serial.printlnf("power: %d | SPEED: %d | REVERS: %d ",digitalRead(power_o),digitalRead(CSpeed_o),digitalRead(CReverse_o));
         // "you have %d hours to come to me",time
-
     }
 }
