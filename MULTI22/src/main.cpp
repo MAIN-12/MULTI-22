@@ -23,10 +23,9 @@
  * Copyright (c) 2024 MAIN 12 LLC
  */
 
-#define Debug_Mode
+bool debugMode = true;
 #include <CStates.h>
 #include "log_functions.h"
-LogEntry conveyor;
 
 void setup()
 {
@@ -35,30 +34,22 @@ void setup()
   attachInterrupt(CFWR_i, ConveyorStateCheck, CHANGE);
   attachInterrupt(CRWD_i, ConveyorStateCheck, CHANGE);
 
-  bms.update();
-
-  conveyor.timestamp = millis();
-  conveyor.codeVersion = version;
-  conveyor.setState(getGeneralState(), getConveyorState());
-  conveyor.battery.status = bms.get.packSOC;
-  conveyor.battery.voltage = bms.get.packVoltage;
-  conveyor.battery.current = bms.get.packCurrent;
-  conveyor.battery.temp = bms.get.tempAverage;
-  conveyor.update();
-  printLogEntry(conveyor);
+  StandBy();
+  state = OPERATION;
 }
 
 void loop()
 {
   // testGoldenOutput();
   // processSerialCommands();
-  conveyourMain();
+  LogEntry conveyor;
   conveyor.codeVersion = version;
   conveyor.timestamp = millis();
-  conveyor.setState(getGeneralState(), getConveyorState());
 
-  conveyor.battery.voltage = batteryCheck();
+  conveyor.setState(conveyourMain(), getConveyorState())
+
+  conveyor.batteryStatus = batteryCheck();
   printLogEntry(conveyor);
 
-  // writeToSD(conveyor);
+  // writeToSD(logEntry);
 }

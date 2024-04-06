@@ -97,9 +97,22 @@ void printLogEntry(const LogEntry &entry)
         Serial.println();
         Serial.println("-------------------------------------------");
 
-        // Reset the flag after printing
         entry.resetUpdatedFlag();
     }
 }
 
+void initLog()
+{
+
+    bms.update();
+    conveyor.timestamp = millis();
+    conveyor.codeVersion = version;
+    conveyor.setState(getGeneralState(), getConveyorState());
+    conveyor.battery.status = bms.get.packSOC;
+    conveyor.battery.voltage = bms.get.packVoltage;
+    conveyor.battery.current = bms.get.packCurrent;
+    conveyor.battery.temp = bms.get.tempAverage;
+    conveyor.update();
+    printLogEntry(conveyor);
+}
 #endif // LOG_FUNCTIONS_H
