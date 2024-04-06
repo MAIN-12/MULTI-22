@@ -23,7 +23,7 @@
  * Copyright (c) 2024 MAIN 12 LLC
  */
 
-bool debugMode = true;
+#define Debug_Mode
 #include <CStates.h>
 #include "log_functions.h"
 
@@ -46,9 +46,9 @@ void loop()
   conveyor.codeVersion = version;
   conveyor.timestamp = millis();
 
-  conveyor.setState(conveyourMain(), getConveyorState())
+  conveyor.setState(conveyourMain(), getConveyorState());
 
-  conveyor.batteryStatus = batteryCheck();
+  conveyor.battery.voltage = batteryCheck();
   printLogEntry(conveyor);
 
   // writeToSD(logEntry);
