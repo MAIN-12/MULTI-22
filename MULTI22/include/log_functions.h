@@ -31,6 +31,10 @@ struct LogEntry
         }
     }
 
+    void update(){
+        variablesUpdated = true;
+    }
+
     void resetUpdatedFlag()
     {
         variablesUpdated = false;
