@@ -81,7 +81,7 @@ void printLogEntry(const LogEntry &entry)
         Serial.print(entry.conveyorState);
         Serial.println();
         Serial.print("Battery Status: ");
-        Serial.println(entry.battery.status);
+        Serial.print(entry.battery.status);
         Serial.print(" | Voltage: ");
         Serial.print(entry.battery.voltage);
         Serial.print(" | Current: ");
