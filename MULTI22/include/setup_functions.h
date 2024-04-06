@@ -21,7 +21,7 @@ void printHeader()
     Serial.println("Script by: Juan C Botero");
     Serial.print("Version: ");
     Serial.println(version);
-    Serial.println("               [ main12.com ]              ");
+    Serial.println("Support: https://main12.com/");
     Serial.println();
 }
 
