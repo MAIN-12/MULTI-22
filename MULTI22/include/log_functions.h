@@ -73,7 +73,8 @@ void printLogEntry(const LogEntry &entry)
 {
     if (debugMode && entry.variablesUpdated)
     {
-        Serial.println("----------------------");
+        Serial.println();
+        Serial.println("-------------------------------------------");
         Serial.print("Timestamp: ");
         Serial.print(entry.timestamp);
         Serial.print(" | General State: ");
@@ -89,8 +90,8 @@ void printLogEntry(const LogEntry &entry)
         Serial.print(entry.battery.current);
         Serial.print(" | Temperature: ");
         Serial.print(entry.battery.temp);
-
-        Serial.println("----------------------");
+        Serial.println();
+        Serial.println("-------------------------------------------");
 
         // Reset the flag after printing
         entry.resetUpdatedFlag();
