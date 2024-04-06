@@ -4,7 +4,7 @@
 #include "Arduino.h"
 #include <Config.h>
 
-bool debugMode = false;
+bool debugMode = true;
 
 void printHeader()
 {
@@ -15,7 +15,8 @@ void printHeader()
     Serial.println("===========================================");
     Serial.println();
     Serial.println("Script by: Juan C Botero");
-    Serial.print("Version: 3.0.0");
+     Serial.print("Version: ");
+    Serial.println(version);
     Serial.println("               [ main12.com ]              ");
     Serial.println();
 }

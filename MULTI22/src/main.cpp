@@ -29,7 +29,6 @@
 void setup()
 {
   setupMain();
-  // printHeader(version);
   attachInterrupt(CStop_i, ConveyorStateCheck, CHANGE);
   attachInterrupt(CFWR_i, ConveyorStateCheck, CHANGE);
   attachInterrupt(CRWD_i, ConveyorStateCheck, CHANGE);
@@ -39,9 +38,8 @@ void loop()
 {
   // testGoldenOutput();
   // processSerialCommands();
-  
   LogEntry logEntry;
-  logEntry.codeVersion = "3.0.0";
+  logEntry.codeVersion = version;
   logEntry.timestamp = millis();
   logEntry.state = conveyourMain();
   logEntry.state = conveyourMain();
