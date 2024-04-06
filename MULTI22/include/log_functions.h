@@ -3,12 +3,12 @@
 
 struct LogEntry
 {
-    String codeVersion;      // Code version as a string
+    String codeVersion; // Code version as a string
+    int status;
     unsigned long timestamp; // Time of the log entry (in milliseconds since start)
     int state;               // State of the conveyor
     int batteryStatus;       // Battery status
-    bool hasError;           // Flag indicating if an error occurred
-    int errorCode;           // Error code (if an error occurred)
+    int errorCode[12];
 };
 
 void processSerialCommands()
@@ -41,26 +41,27 @@ void processSerialCommands()
     }
 }
 
+int previousState = -1;
+
 void printLogEntry(const LogEntry &entry)
 {
     if (debugMode)
     {
-        Serial.print("Timestamp: ");
-        Serial.println(entry.timestamp);
-        Serial.print("State: ");
-        Serial.println(entry.state);
-        Serial.print("Battery Status: ");
-        Serial.println(entry.batteryStatus);
-        Serial.print("Has Error: ");
-        Serial.println(entry.hasError ? "Yes" : "No");
-        if (entry.hasError)
+        // Check if the current state is different from the previous state
+        if (entry.state != previousState)
         {
-            Serial.print("Error Code: ");
-            Serial.println(entry.errorCode);
+            // Print only if the state changes
+            Serial.print("Code Version: ");
+            Serial.print(entry.codeVersion);
+            Serial.print(" | Timestamp: ");
+            Serial.print(entry.timestamp);
+            Serial.print(" | State: ");
+            Serial.println(entry.state);
+            Serial.print(" | Battery Status: ");
+            Serial.println(entry.batteryStatus);
+
+            previousState = entry.state;
         }
-        Serial.print("Code Version: ");
-        Serial.println(entry.codeVersion);
-        // Print additional fields if added
     }
 }
 #endif // LOG_FUNCTIONS_H

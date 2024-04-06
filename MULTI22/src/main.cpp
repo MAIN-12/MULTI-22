@@ -42,6 +42,7 @@ void loop()
   logEntry.codeVersion = "3.0.0";
   logEntry.timestamp = millis();
   logEntry.state = conveyourMain();
+  logEntry.state = conveyourMain();
   logEntry.batteryStatus  = batteryCheck();
   printLogEntry(logEntry);
   // writeToSD(logEntry);
