@@ -23,7 +23,7 @@
  * Copyright (c) 2024 MAIN 12 LLC
  */
 
-#define Debug_Mode
+bool debugMode = true;
 #include <CStates.h>
 #include "log_functions.h"
 
@@ -42,14 +42,8 @@ void loop()
 {
   // testGoldenOutput();
   // processSerialCommands();
-  LogEntry conveyor;
-  conveyor.codeVersion = version;
-  conveyor.timestamp = millis();
-
-  conveyor.setState(conveyourMain(), getConveyorState());
-
-  conveyor.battery.voltage = batteryCheck();
-  printLogEntry(conveyor);
+  conveyourMain();
+  batteryCheck();
 
   // writeToSD(logEntry);
 }
