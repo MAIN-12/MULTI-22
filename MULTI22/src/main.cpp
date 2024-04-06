@@ -45,7 +45,7 @@ void setup()
   conveyor.battery.current = bms.get.packCurrent;
   conveyor.battery.temp = bms.get.tempAverage;
   conveyor.update();
-  printLogEntry(conveyor);
+  conveyor.printLogEntry();
 }
 
 void loop()
@@ -56,9 +56,8 @@ void loop()
   conveyor.codeVersion = version;
   conveyor.timestamp = millis();
   conveyor.setState(getGeneralState(), getConveyorState());
-
   conveyor.battery.voltage = batteryCheck();
-  printLogEntry(conveyor);
+  conveyor.printLogEntry();
 
   // writeToSD(conveyor);
 }

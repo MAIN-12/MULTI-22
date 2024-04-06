@@ -31,13 +31,42 @@ struct LogEntry
         }
     }
 
-    void update(){
+    void update()
+    {
         variablesUpdated = true;
     }
 
     void resetUpdatedFlag()
     {
         variablesUpdated = false;
+    }
+
+    void printLogEntry() const
+    {
+        if (debugMode && variablesUpdated)
+        {
+            Serial.println();
+            Serial.println("-------------------------------------------");
+            Serial.print("Timestamp: ");
+            Serial.print(timestamp);
+            Serial.print(" | General State: ");
+            Serial.print(generalState);
+            Serial.print(" | Conveyor State: ");
+            Serial.println(conveyorState);
+            Serial.print("Battery Status: ");
+            Serial.print(battery.status);
+            Serial.print(" | Voltage: ");
+            Serial.print(battery.voltage);
+            Serial.print(" | Current: ");
+            Serial.print(battery.current);
+            Serial.print(" | Temperature: ");
+            Serial.print(battery.temp);
+            Serial.println();
+            Serial.println("-------------------------------------------");
+
+            // Reset the flag after printing
+            resetUpdatedFlag();
+        }
     }
 };
 
