@@ -110,6 +110,7 @@ void printLogEntry(const LogEntry &entry)
         Serial.println("-------------------------------------------");
         Serial.print("Timestamp: ");
         Serial.print(entry.timestamp);
+        Serial.println();
         Serial.print(" | General State: ");
         Serial.print(entry.generalState);
         Serial.print(" | Conveyor State: ");
@@ -117,6 +118,7 @@ void printLogEntry(const LogEntry &entry)
         Serial.println();
         Serial.print("Battery Status: ");
         Serial.print(entry.battery.status);
+        Serial.println();
         Serial.print(" | Voltage: ");
         Serial.print(entry.battery.voltage);
         Serial.print(" | Current: ");
