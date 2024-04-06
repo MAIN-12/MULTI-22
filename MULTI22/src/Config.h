@@ -105,7 +105,6 @@ byte oState = S; //Operational Stae
 byte oldState =         -1;
 byte oldOState =         -1;
 
-
 byte elevationState =    0;
 byte brakesState =       0;
 

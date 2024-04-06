@@ -6,7 +6,8 @@
 
 bool debugMode = false;
 
-void printHeader(const String& version) {
+void printHeader()
+{
     Serial.println();
     Serial.println("===========================================");
     Serial.println("================= MAIN 12 =================");
@@ -14,8 +15,7 @@ void printHeader(const String& version) {
     Serial.println("===========================================");
     Serial.println();
     Serial.println("Script by: Juan C Botero");
-    Serial.print("Version: ");
-    Serial.println(version);
+    Serial.print("Version: 3.0.0");
     Serial.println("               [ main12.com ]              ");
     Serial.println();
 }
@@ -37,7 +37,7 @@ void setupMain(int baud = 9600)
 {
     Serial.begin(baud);
     while (!Serial);
-    // printHeader();
+    printHeader();
     configureConveyorPins();
     initializeBMSviaSerial();
 }
