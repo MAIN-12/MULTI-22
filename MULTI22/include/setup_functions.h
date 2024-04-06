@@ -18,10 +18,10 @@ void printHeader()
     Serial.println("========= Multiplo Colombia S.A.S =========");
     Serial.println("===========================================");
     Serial.println();
-    Serial.println("Script by: Juan C Botero");
+    Serial.println("Author: Juan C Botero");
+    Serial.println("Support: https://main12.com/");
     Serial.print("Version: ");
     Serial.println(version);
-    Serial.println("Support: https://main12.com/");
     Serial.println();
 }
 
