@@ -5,6 +5,7 @@ struct LogEntry
 {
     String codeVersion;
     int status;
+    mutable bool variablesUpdated;
     unsigned long timestamp;
     int generalState;
     int conveyorState;
@@ -18,8 +19,6 @@ struct LogEntry
     } battery;
 
     int errorCode[12];
-
-    bool variablesUpdated;
 
     void setState(int newGeneralState, int newConveyorState)
     {
@@ -39,34 +38,6 @@ struct LogEntry
     void resetUpdatedFlag()
     {
         variablesUpdated = false;
-    }
-
-    void printLogEntry() const
-    {
-        if (debugMode && variablesUpdated)
-        {
-            Serial.println();
-            Serial.println("-------------------------------------------");
-            Serial.print("Timestamp: ");
-            Serial.print(timestamp);
-            Serial.print(" | General State: ");
-            Serial.print(generalState);
-            Serial.print(" | Conveyor State: ");
-            Serial.println(conveyorState);
-            Serial.print("Battery Status: ");
-            Serial.print(battery.status);
-            Serial.print(" | Voltage: ");
-            Serial.print(battery.voltage);
-            Serial.print(" | Current: ");
-            Serial.print(battery.current);
-            Serial.print(" | Temperature: ");
-            Serial.print(battery.temp);
-            Serial.println();
-            Serial.println("-------------------------------------------");
-
-            // Reset the flag after printing
-            resetUpdatedFlag();
-        }
     }
 };
 
@@ -100,26 +71,24 @@ void processSerialCommands()
     }
 }
 
-int previousState = -1;
-
 void printLogEntry(const LogEntry &entry)
 {
     if (debugMode && entry.variablesUpdated)
     {
         Serial.println();
         Serial.println("-------------------------------------------");
+        Serial.print("New Log Entry | ");
         Serial.print("Timestamp: ");
         Serial.print(entry.timestamp);
         Serial.println();
-        Serial.print(" | General State: ");
+        Serial.print("General State: ");
         Serial.print(entry.generalState);
         Serial.print(" | Conveyor State: ");
-        Serial.print(entry.conveyorState);
-        Serial.println();
+        Serial.println(entry.conveyorState);
         Serial.print("Battery Status: ");
         Serial.print(entry.battery.status);
         Serial.println();
-        Serial.print(" | Voltage: ");
+        Serial.print("Voltage: ");
         Serial.print(entry.battery.voltage);
         Serial.print(" | Current: ");
         Serial.print(entry.battery.current);

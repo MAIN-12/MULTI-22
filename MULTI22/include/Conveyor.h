@@ -132,7 +132,7 @@ byte bateryLightTesting()
   delay(500);
   return 0;
 }
-byte testBatteryIndicator()
+void testBatteryIndicator()
 {
   bateryLightTesting();
 }
