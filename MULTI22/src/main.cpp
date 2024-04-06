@@ -42,7 +42,7 @@ void setup()
   conveyorInit.timestamp = millis();
   conveyorInit.codeVersion = version;
   conveyorInit.setState(getGeneralState(), getConveyorState());
-  conveyorInit.battery.state = bms.get.packSOC;
+  conveyorInit.battery.status = bms.get.packSOC;
   conveyorInit.battery.voltage = bms.get.packVoltage;
   conveyorInit.battery.current = bms.get.packCurrent;
   conveyorInit.battery.temp = bms.get.tempAverage;

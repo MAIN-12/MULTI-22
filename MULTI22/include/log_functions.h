@@ -87,7 +87,7 @@ void printLogEntry(const LogEntry &entry)
         Serial.print(" | Current: ");
         Serial.print(entry.battery.current);
         Serial.print(" | Temperature: ");
-        Serial.print(entry.battery.temperature);
+        Serial.print(entry.battery.temp);
 
         // Reset the flag after printing
         entry.resetUpdatedFlag();
