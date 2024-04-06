@@ -26,6 +26,7 @@
 #define Debug_Mode
 #include <CStates.h>
 #include "log_functions.h"
+LogEntry conveyor;
 
 void setup()
 {
@@ -34,26 +35,22 @@ void setup()
   attachInterrupt(CFWR_i, ConveyorStateCheck, CHANGE);
   attachInterrupt(CRWD_i, ConveyorStateCheck, CHANGE);
 
-
   bms.update();
-  float voltage = bms.get.packVoltage;
 
-  LogEntry conveyorInit;
-  conveyorInit.timestamp = millis();
-  conveyorInit.codeVersion = version;
-  conveyorInit.setState(getGeneralState(), getConveyorState());
-  conveyorInit.battery.status = bms.get.packSOC;
-  conveyorInit.battery.voltage = bms.get.packVoltage;
-  conveyorInit.battery.current = bms.get.packCurrent;
-  conveyorInit.battery.temp = bms.get.tempAverage;
-  printLogEntry(conveyorInit);
+  conveyor.timestamp = millis();
+  conveyor.codeVersion = version;
+  conveyor.setState(getGeneralState(), getConveyorState());
+  conveyor.battery.status = bms.get.packSOC;
+  conveyor.battery.voltage = bms.get.packVoltage;
+  conveyor.battery.current = bms.get.packCurrent;
+  conveyor.battery.temp = bms.get.tempAverage;
+  printLogEntry(conveyor);
 }
 
 void loop()
 {
   // testGoldenOutput();
   // processSerialCommands();
-  LogEntry conveyor;
   conveyourMain();
   conveyor.codeVersion = version;
   conveyor.timestamp = millis();
