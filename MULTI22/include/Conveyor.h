@@ -165,7 +165,7 @@ byte batteryCheck()
     batteryPreviousMillis = millis();
 
     Serial.print("Battery Check:");
-    byte batteryTest=batteryCheck_3ligths()
+    byte batteryTest=batteryCheck_3ligths();
     Serial.println(batteryTest);
     return batteryTest;
   }
