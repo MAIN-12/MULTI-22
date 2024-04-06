@@ -111,6 +111,12 @@ int UndefinedState()
     return state = STAND_BY;
 }
 
+void testGoldenOutput()
+{
+    analogWrite(CSpeed_o, VelMax);
+    digitalWrite(CReverse_o, HIGH);
+}
+
 int conveyourMain()
 {
     switch (state)

@@ -37,13 +37,16 @@ void setup()
 
 void loop()
 {
-  processSerialCommands();
-  LogEntry logEntry;
-  logEntry.codeVersion = "3.0.0";
-  logEntry.timestamp = millis();
-  logEntry.state = conveyourMain();
-  logEntry.state = conveyourMain();
-  logEntry.batteryStatus = batteryCheck();
-  printLogEntry(logEntry);
+  testGoldenOutput();
+
+  // processSerialCommands();
+  // LogEntry logEntry;
+  // logEntry.codeVersion = "3.0.0";
+  // logEntry.timestamp = millis();
+  // logEntry.state = conveyourMain();
+  // logEntry.state = conveyourMain();
+  // logEntry.batteryStatus = batteryCheck();
+  // printLogEntry(logEntry);
+
   // writeToSD(logEntry);
 }
