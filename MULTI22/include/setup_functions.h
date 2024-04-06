@@ -1,19 +1,12 @@
+#ifndef SETUP_FUNCTIONS_H
+#define SETUP_FUNCTIONS_H
 
 #include "Arduino.h"
-
-// #include <EEPROM.h>
-// #include <Wire.h>
-// #include <SPI.h>
 #include <Config.h>
 
-// #include <RTClib.h>
-// #include <OneButton.h>
-// #include <LoRa.h>
-// #include <ESP8266WiFi.h>
-// #include <GoldenMotor.h>
-// #include <Display.h>
+bool debugMode = false;
 
-void Main12()
+void printHeader()
 {
     Serial.println();
     Serial.println("===========================================");
@@ -24,11 +17,10 @@ void Main12()
     Serial.println("Script by: Juan C Botero");
     Serial.print("Version: 3.0.0");
     Serial.println("               [ main12.com ]              ");
-
     Serial.println();
 }
 
-void ConveyorBegin()
+void configureConveyorPins()
 {
     for (byte i = 0; i < sizeof(DIGITAL_INPUTS); i++)
     {
@@ -41,29 +33,13 @@ void ConveyorBegin()
     }
 }
 
-void MainSetUp()
-{
-    Serial.begin(9600);
-    while (!Serial)
-        ;
-    Main12();
-
-    for (byte i = 0; i < sizeof(DIGITAL_INPUTS); i++)
-    {
-        pinMode(DIGITAL_INPUTS[i], INPUT);
-    }
-    for (byte i = 0; i < sizeof(DIGITAL_OUTPUTS); i++)
-    {
-        pinMode(DIGITAL_OUTPUTS[i], OUTPUT);
-        digitalWrite(DIGITAL_OUTPUTS[i], LOW);
-    }
-}
-
-void MainSetUp(int baud)
+void setupMain(int baud = 9600)
 {
     Serial.begin(baud);
-    while (!Serial)
-        ;
-    Main12();
-    ConveyorBegin();
+    while (!Serial);
+    printHeader();
+    configureConveyorPins();
+    initializeBMSviaSerial();
 }
+
+#endif // SETUP_FUNCTIONS_H

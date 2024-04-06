@@ -1,7 +1,7 @@
 /* ==============================================================================
  * Script by: Juan Carlos Botero
  * Date: 08/08/2020
- * Version: 2.0.0
+ * Version: 2.3.0
  * ==============================================================================
  *                      Copyright (c) 2020 Charlie Projects
  *                      github.com/CharlieProjects/MULTI-19
@@ -32,7 +32,7 @@
  * SOFTWARE.
  */
 
-#include <000 mainSetUp.h>
+#include "setup_functions.h"
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
 #else
@@ -162,6 +162,11 @@ byte bateryLightTesting()
   delay(500);
   return 0;
 }
+byte testBatteryIndicator()
+{
+  bateryLightTesting();
+}
+
 byte batteryCheck()
 {
   // Check if it's time to run the function

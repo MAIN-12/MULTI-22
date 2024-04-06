@@ -40,7 +40,7 @@
 
 // =============== CODE VERSION =================================================
 #define version '3.0.0'
-char update[]= "09-20-2022";
+char update[]= "09-20-2024";
 char ID[]= "XXXX001MULTI22";
 
 // ================ INPUTS ======================================================
@@ -148,15 +148,10 @@ const int rxPin = 11; // Define custom RX pin ...
 const int txPin = 12; // Define custom TX pin ...
 SoftwareSerial customSerial(rxPin, txPin); 
 
-// #define BMS_SERIAL Serial
-// #define BMS_SERIAL Serial1
-// #define BMS_SERIAL customSerial
-
-// Daly_BMS_UART bms(BMS_SERIAL);
 Daly_BMS_UART bms(customSerial);
 
 
-void BMSSerialInitialize(){
+void initializeBMSviaSerial() {
     bms.Init();
 }
 
@@ -168,4 +163,3 @@ void BMSSerialInitialize(){
 // byte DIGITAL_OUTPUTS[] = {beacon_o, reflector_o, up_o, down_o, FWR_o, RWD_o, batteryState1_o, batteryState2_o, generalState1_o, generalState2_o};//
 byte DIGITAL_INPUTS[] = {start_i, eStop_i, CFWR_i, CRWD_i, CStop_i, batteryVoltage_i}; //
 byte DIGITAL_OUTPUTS[] = {power_o, CSpeed_o, CReverse_o, batteryState1_o, batteryState2_o};//
-// OneButton button1(swStop, true);
