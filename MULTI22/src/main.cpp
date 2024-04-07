@@ -23,7 +23,6 @@
  * Copyright (c) 2024 MAIN 12 LLC
  */
 
-bool debugMode = true;
 #include <CStates.h>
 #include "log_functions.h"
 
@@ -40,10 +39,9 @@ void setup()
 
 void loop()
 {
-  // testGoldenOutput();
   // processSerialCommands();
   conveyourMain();
   batteryCheck();
-
+  // testGoldenOutput();
   // writeToSD(logEntry);
 }
