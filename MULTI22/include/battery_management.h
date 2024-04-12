@@ -102,18 +102,19 @@ void testBatteryIndicator()
   bateryLightTesting();
 }
 
-byte performBatteryCheck(unsigned long &previousMillis, unsigned long interval, byte (*checkFunction)(int))
+
+byte batteryCheck()
 {
-  if (!batteryForceCheck && millis() - previousMillis >= interval)
+  // Check if it's time to run the function
+  if (!batteryForceCheck && millis() - batteryPreviousMillis >= bateryInterval)
   {
-    previousMillis = millis();
-    batteryForceCheck = false;
+    batteryPreviousMillis = millis();
 
     bms.update();
     float voltage = bms.get.packVoltage;
     byte BCP = int(voltage);
 
-    return checkFunction(int(voltage));
+    return batteryCheck_3ligths(int(voltage));
   }
   else
   {
@@ -121,14 +122,53 @@ byte performBatteryCheck(unsigned long &previousMillis, unsigned long interval, 
   }
 }
 
-byte batteryCheck()
-{
-  return performBatteryCheck(batteryPreviousMillis, batteryInterval, batteryCheck_3ligths);
-}
-
 byte batteryCheckStandBy()
 {
   batteryForceCheck = true;
-  return performBatteryCheck(batteryPreviousMillis, batteryIntervalStandBy, standByBatteryCheck);
+  if (!batteryForceCheck && millis() - batteryPreviousMillis >= bateryIntervalStandBy)
+  {
+    batteryPreviousMillis = millis();
+
+    bms.update();
+    float voltage = bms.get.packVoltage;
+    byte BCP = int(voltage);
+
+    return standByBatteryCheck(int(voltage));
+  }
+  else
+  {
+    return 0;
+  }
 }
+
+
+// byte performBatteryCheck(unsigned long &previousMillis, unsigned long interval, byte (*checkFunction)(int))
+// {
+//   if (!batteryForceCheck && millis() - previousMillis >= interval)
+//   {
+//     previousMillis = millis();
+//     batteryForceCheck = false;
+
+//     bms.update();
+//     float voltage = bms.get.packVoltage;
+//     byte BCP = int(voltage);
+
+//     return checkFunction(int(voltage));
+//   }
+//   else
+//   {
+//     return 0;
+//   }
+// }
+
+// byte batteryCheck()
+// {
+//   return performBatteryCheck(batteryPreviousMillis, batteryInterval, batteryCheck_3ligths);
+// }
+
+// byte batteryCheckStandBy()
+// {
+//   batteryForceCheck = true;
+//   return performBatteryCheck(batteryPreviousMillis, batteryIntervalStandBy, standByBatteryCheck);
+// }
 #endif
