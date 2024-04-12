@@ -2,7 +2,7 @@
 #define CSTATE_H
 
 /********************************************************************************
- * @file        CStates.h
+ * @file        conveyor_state_handler.h
  * @author      Juan Carlos Botero
  * @date        04/12/2024
  * @version     2.0.0
@@ -12,7 +12,7 @@
  * ******************************************************************************
  */
 
-#include <conveyor_controller.h>
+#include "conveyor_controller.h"
 
 int getConveyorState()
 {

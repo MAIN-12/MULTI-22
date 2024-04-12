@@ -17,7 +17,7 @@
 #else
 #include "WProgram.h"
 #endif
-#include <Config.h>
+#include "Config.h"
 
 #ifdef Debug_Mode
 bool debugMode = true;
