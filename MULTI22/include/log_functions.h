@@ -1,6 +1,17 @@
 #ifndef LOG_FUNCTIONS_H
 #define LOG_FUNCTIONS_H
 
+/********************************************************************************
+ * @file        log_functions.h
+ * @author      Juan Carlos Botero
+ * @date        08/08/2020
+ * @version     1.2.0
+ * @brief       Header file for generationg log documentation of the execution.
+ * @license     MIT License
+ * @website     https://www.main12.com
+ * ******************************************************************************
+ */
+
 struct LogEntry
 {
     String codeVersion;

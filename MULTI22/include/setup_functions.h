@@ -1,6 +1,17 @@
 #ifndef SETUP_FUNCTIONS_H
 #define SETUP_FUNCTIONS_H
 
+/********************************************************************************
+ * @file        setup_functions.h
+ * @author      Juan Carlos Botero
+ * @date        04/12/2024
+ * @version     2.0.0
+ * @brief       Setup function to initialize the system.
+ * @license     MIT License
+ * @website     https://www.main12.com
+ * ******************************************************************************
+ */
+
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
 #else

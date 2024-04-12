@@ -1,16 +1,16 @@
-/* ******************************************************************************
- * File:        conveyor_controller.h
- * Date:        04/12/2024
- * Version:     2.4.0
- * Version:     2.4.0
- * Description: Header file for controlling the conveyor belt system.
- * License:     [License Type]
- * Website:     [Project Website or Repository]
- * ******************************************************************************
- */
-
 #ifndef CONVEYOR_CONTROLLER_H
 #define CONVEYOR_CONTROLLER_H
+
+/********************************************************************************
+ * @file        conveyor_controller.h
+ * @author      Juan Carlos Botero
+ * @date        08/08/2020
+ * @version     2.4.0
+ * @brief       Header file for controlling the conveyor belt system.
+ * @license     MIT License
+ * @website     https://www.main12.com
+ * ******************************************************************************
+ */
 
 #include "setup_functions.h"
 #include "battery_management.h"

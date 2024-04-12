@@ -1,3 +1,17 @@
+#ifndef CSTATE_H
+#define CSTATE_H
+
+/********************************************************************************
+ * @file        CStates.h
+ * @author      Juan Carlos Botero
+ * @date        04/12/2024
+ * @version     2.0.0
+ * @brief       Header file for generationg log documentation of the execution.
+ * @license     MIT License
+ * @website     https://www.main12.com
+ * ******************************************************************************
+ */
+
 #include <conveyor_controller.h>
 
 int getConveyorState()
@@ -204,3 +218,4 @@ void stateDebug()
         // "you have %d hours to come to me",time
     }
 }
+#endif

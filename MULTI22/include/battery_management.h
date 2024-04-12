@@ -1,16 +1,16 @@
-/* ******************************************************************************
- * File:        battery_management.h
- * Author:      Juan Carlos Botero
- * Date:        04/12/2024
- * Version:     1.0.0
- * Description: Header file for battery management functions.
- * License:     MIT License
- * Website:     https://www.main12.com
- * ******************************************************************************
- */
-
 #ifndef BATTERY_MANAGEMENT_H
 #define BATTERY_MANAGEMENT_H
+
+/********************************************************************************
+ * @file        battery_management.h
+ * @author      Juan Carlos Botero
+ * @date        04/12/2024
+ * @version     1.0.0
+ * @brief       Header file for battery management functions.
+ * @license     MIT License
+ * @website     https://www.main12.com
+ * ******************************************************************************
+ */
 
 #include "setup_functions.h"
 
