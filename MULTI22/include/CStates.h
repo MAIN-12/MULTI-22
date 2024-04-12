@@ -32,7 +32,6 @@ void ConveyorStateCheck()
     }
 }
 
-
 int setConveyorState(byte cState)
 {
     switch (cState)
@@ -66,6 +65,7 @@ int StandBy()
     digitalWrite(power_o, LOW);
     analogWrite(CSpeed_o, LOW);
     digitalWrite(CReverse_o, LOW);
+    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, LOW);
     oState = STOP;
     // batteryCheck();
 
@@ -102,6 +102,7 @@ int Charging()
 int EStop()
 {
     EMERGENCY_STOP();
+    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, LOW);
     return state = (!digitalRead(start_i) && !digitalRead(eStop_i)) ? STAND_BY
                                                                     : E_STOP;
 }
@@ -111,6 +112,7 @@ int Sleep()
     digitalWrite(power_o, LOW);
     analogWrite(CSpeed_o, VelMin);
     digitalWrite(CReverse_o, LOW);
+    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, LOW);
     oState = STOP;
     return state = (!digitalRead(start_i) && !digitalRead(eStop_i)) ? STAND_BY
                                                                     : E_STOP;
