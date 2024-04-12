@@ -106,7 +106,7 @@ void testBatteryIndicator()
 byte batteryCheck()
 {
   // Check if it's time to run the function
-  if (!batteryForceCheck && millis() - batteryPreviousMillis >= bateryInterval)
+  if (!batteryForceCheck && millis() - batteryPreviousMillis >= batteryInterval)
   {
     batteryPreviousMillis = millis();
 
@@ -125,7 +125,7 @@ byte batteryCheck()
 byte batteryCheckStandBy()
 {
   batteryForceCheck = true;
-  if (!batteryForceCheck && millis() - batteryPreviousMillis >= bateryIntervalStandBy)
+  if (!batteryForceCheck && millis() - batteryPreviousMillis >= batteryIntervalStandBy)
   {
     batteryPreviousMillis = millis();
 
