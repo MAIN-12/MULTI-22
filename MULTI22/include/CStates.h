@@ -82,8 +82,8 @@ int Operation()
     digitalWrite(power_o, HIGH);
     ConveyorStateCheck();
     setConveyorState(oState);
+    batteryCheck();
     // elevation();
-    // batteryCheck();
     // illumination();
 
     return state = (digitalRead(eStop_i))               ? E_STOP

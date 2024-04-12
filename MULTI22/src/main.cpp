@@ -41,7 +41,6 @@ void loop()
 {
   // processSerialCommands();
   conveyourMain();
-  batteryCheck();
   // testGoldenOutput();
   // writeToSD(logEntry);
 }
