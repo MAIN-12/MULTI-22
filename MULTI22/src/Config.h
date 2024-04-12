@@ -139,7 +139,7 @@ const int brakeTime = 1000;
 //============== BATTERY ========================================================
 #include <SoftwareSerial.h>
 #include <daly-bms-uart.h>
-
+bool batteryForceCheck = true;
 float batteryMinVoltage = 38;     // [v]
 float batteryMaxVoltage = 55;     // [v]
 float batteryCharginVoltage = 58; // [v]
@@ -147,7 +147,8 @@ byte BatteryLowLevel = 43;
 byte BatteryMidLevel = 45;
 byte BatteryFullCharge = 55;
 unsigned long batteryPreviousMillis = 0;
-const long bateryInterval = 30000;
+const long batteryInterval = 30000;
+const long batteryIntervalStandBy = 120000;
 const int rxPin = 11; // Define custom RX pin ...
 const int txPin = 12; // Define custom TX pin ...
 SoftwareSerial customSerial(rxPin, txPin);

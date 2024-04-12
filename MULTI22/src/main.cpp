@@ -33,8 +33,6 @@ void setup()
   attachInterrupt(CFWR_i, ConveyorStateCheck, CHANGE);
   attachInterrupt(CRWD_i, ConveyorStateCheck, CHANGE);
 
-  StandBy();
-  state = OPERATION;
 }
 
 void loop()

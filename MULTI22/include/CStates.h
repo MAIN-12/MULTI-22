@@ -1,4 +1,4 @@
-#include <Conveyor.h>
+#include <conveyor_controller.h>
 
 int getConveyorState()
 {
@@ -65,9 +65,8 @@ int StandBy()
     digitalWrite(power_o, LOW);
     analogWrite(CSpeed_o, LOW);
     digitalWrite(CReverse_o, LOW);
-    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, LOW);
+    batteryCheckStandBy();
     oState = STOP;
-    // batteryCheck();
 
     state = (digitalRead(start_i) && !digitalRead(eStop_i)) ? OPERATION
                                                             : STAND_BY;

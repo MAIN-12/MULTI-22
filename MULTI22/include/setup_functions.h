@@ -1,7 +1,11 @@
 #ifndef SETUP_FUNCTIONS_H
 #define SETUP_FUNCTIONS_H
 
+#if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
+#else
+#include "WProgram.h"
+#endif
 #include <Config.h>
 
 #ifdef Debug_Mode
