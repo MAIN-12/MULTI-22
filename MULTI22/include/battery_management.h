@@ -120,7 +120,7 @@ int batteryCheckStandBy()
 {
 Serial.print("Battery StandBy in");
   batteryForceCheck = true;
-  if (!batteryForceCheck && millis() - batteryPreviousMillis >= batteryIntervalStandBy)
+  if (!batteryForceCheck || millis() - batteryPreviousMillis >= batteryIntervalStandBy)
   {
     batteryPreviousMillis = millis();
 
@@ -138,7 +138,7 @@ Serial.print("Battery StandBy in");
 
 byte performBatteryCheck(unsigned long &previousMillis, unsigned long interval, byte (*checkFunction)(int))
 {
-  if (!batteryForceCheck && millis() - previousMillis >= interval)
+  if (!batteryForceCheck || millis() - previousMillis >= interval)
   {
     previousMillis = millis();
     batteryForceCheck = false;
