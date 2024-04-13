@@ -13,15 +13,37 @@
  */
 
 #include "conveyor_controller.h"
+#include "battery_management.h"
+
+enum MainFSMState
+{
+    STAND_BY = 0,  // main FSM state 1
+    OPERATION = 1, // main FSM state 2
+    CHARGING = 2,  // main FSM state 3
+    E_STOP = 3,    // main FSM state 4
+    SLEEP = 4      // main FSM state 5
+};
+
+enum ConveyorFSMState
+{
+    STOP = 0, // Operational state Stop
+    FWR = 1,  // Operational state Forward
+    BWR = 2   // Operational state Backward
+};
+
+MainFSMState currentState = STAND_BY;
+MainFSMState previousState = STAND_BY;
+ConveyorFSMState currentConveyorState = STOP;
+ConveyorFSMState previousConveyorState = STOP;
 
 int getConveyorState()
 {
-    return oState;
+    return currentConveyorState;
 }
 
 int getGeneralState()
 {
-    return state;
+    return currentState;
 }
 
 void ConveyorStateCheck()
@@ -31,18 +53,18 @@ void ConveyorStateCheck()
         // dacWrite(CSpeed_o, ceil(VelMin));
         // analogWrite(CSpeed_o, ceil(VelMin));
         waitMillis = millis();
-        oState = STOP;
+        currentConveyorState = STOP;
     }
     else if (digitalRead(CFWR_i))
     {
         waitMillis = millis();
-        oState = FWR;
+        currentConveyorState = FWR;
     }
 
     else if (digitalRead(CRWD_i))
     {
         waitMillis = millis();
-        oState = BWR;
+        currentConveyorState = BWR;
     }
 }
 
@@ -53,25 +75,21 @@ int setConveyorState(byte cState)
     case STOP:
         analogWrite(CSpeed_o, VelMin);
         digitalWrite(CReverse_o, LOW);
-        // ConveyorControl(VelMin);
-        // dacWrite(CSpeed_o, ceil(VelMin));
         break;
 
     case FWR:
         analogWrite(CSpeed_o, VelMax);
         digitalWrite(CReverse_o, LOW);
-        // ConveyorControl(VelMax);
         break;
 
     case BWR:
         analogWrite(CSpeed_o, VelMax);
         digitalWrite(CReverse_o, HIGH);
-        // ConveyorControl(-VelMax);
         break;
     default:
         break;
     }
-    return oState;
+    return currentConveyorState;
 }
 
 int StandBy()
@@ -80,44 +98,43 @@ int StandBy()
     analogWrite(CSpeed_o, LOW);
     digitalWrite(CReverse_o, LOW);
     batteryCheckStandBy();
-    oState = STOP;
+    currentConveyorState = STOP;
 
-    state = (digitalRead(start_i) && !digitalRead(eStop_i)) ? OPERATION
-                                                            : STAND_BY;
-    waitMillis = (state == OPERATION)    ? millis()
-                 : !digitalRead(start_i) ? 0
-                                         : waitMillis;
-    return state;
+    currentState = (digitalRead(start_i) && !digitalRead(eStop_i)) ? OPERATION
+                                                                   : STAND_BY;
+    waitMillis = (currentState == OPERATION) ? millis()
+                 : !digitalRead(start_i)     ? 0
+                                             : waitMillis;
+    return currentState;
 }
 
 int Operation()
 {
     digitalWrite(power_o, HIGH);
     ConveyorStateCheck();
-    setConveyorState(oState);
+    setConveyorState(currentConveyorState);
     batteryCheck();
     // elevation();
     // illumination();
 
-    return state = (digitalRead(eStop_i))               ? E_STOP
-                   : (!digitalRead(start_i))            ? STAND_BY
-                   : (millis() - waitMillis > waitTime) ? SLEEP
-                                                        : OPERATION;
+    return currentState = (digitalRead(eStop_i))               ? E_STOP
+                          : (!digitalRead(start_i))            ? STAND_BY
+                          : (millis() - waitMillis > waitTime) ? SLEEP
+                                                               : OPERATION;
 }
 
 int Charging()
 {
     digitalWrite(power_o, LOW);
     batteryCheck();
-    return state = !digitalRead(charger_i) ? STAND_BY : CHARGING;
+    return currentState = !digitalRead(charger_i) ? STAND_BY : CHARGING;
 }
 
 int EStop()
 {
     EMERGENCY_STOP();
-    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, LOW);
-    return state = (!digitalRead(start_i) && !digitalRead(eStop_i)) ? STAND_BY
-                                                                    : E_STOP;
+    return currentState = (!digitalRead(start_i) && !digitalRead(eStop_i)) ? STAND_BY
+                                                                           : E_STOP;
 }
 
 int Sleep()
@@ -125,16 +142,16 @@ int Sleep()
     digitalWrite(power_o, LOW);
     analogWrite(CSpeed_o, VelMin);
     digitalWrite(CReverse_o, LOW);
-    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, LOW);
-    oState = STOP;
-    return state = (!digitalRead(start_i) && !digitalRead(eStop_i)) ? STAND_BY
-                                                                    : E_STOP;
+    batteryCheckStandBy();
+    currentConveyorState = STOP;
+    return currentState = (!digitalRead(start_i) && !digitalRead(eStop_i)) ? STAND_BY
+                                                                           : E_STOP;
 }
 
 int UndefinedState()
 {
     Serial.println("Undefined state");
-    return state = STAND_BY;
+    return currentState = STAND_BY;
 }
 
 void testGoldenOutput()
@@ -145,32 +162,26 @@ void testGoldenOutput()
 
 int conveyourMain()
 {
-    switch (state)
+    switch (currentState)
     {
-    case STAND_BY:
-        return StandBy();
-    case OPERATION:
-        return Operation();
-    case CHARGING:
-        return Charging();
-    case E_STOP:
-        return EStop();
-    case SLEEP:
-        return Sleep();
-    default:
-        return UndefinedState();
+    case STAND_BY:   return StandBy();
+    case OPERATION:  return Operation();
+    case CHARGING:   return Charging();
+    case E_STOP:     return EStop();
+    case SLEEP:      return Sleep();
+    default:         return UndefinedState();
     }
 }
 
 void stateDebug()
 {
-    if ((oldState != state) || (oldOState != oState))
+    if ((previousState != currentState) || (previousConveyorState != currentConveyorState))
     {
-        oldState = state;
-        oldOState = oState;
+        previousState = currentState;
+        previousConveyorState = currentConveyorState;
         Serial.print("General state: ");
-        Serial.print(state);
-        switch (state)
+        Serial.print(currentState);
+        switch (currentState)
         {
         case 0:
             Serial.print("Stand By");
@@ -195,7 +206,7 @@ void stateDebug()
 
         Serial.print(" | Conveyor state");
 
-        switch (oState)
+        switch (currentConveyorState)
         {
         case 0:
             Serial.print("stand by");

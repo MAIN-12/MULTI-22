@@ -1,13 +1,16 @@
-/* ==============================================================================
- * Script by: Juan Carlos Botero
- * Date: 04/06/2024
- * ==============================================================================
- *                   Copyright (c) 2024 MAIN 12 LLC
- * ==============================================================================
+/********************************************************************************
  * ========================      CONVEYOR MULTI-22      =========================
  * ========================   Multiplo Colombia S.A.S.  =========================
  * ==============================================================================
- * Description:
+ * @file        main.cpp
+ * @author      Juan Carlos Botero
+ * @date        04/06/2024
+ * @version     3.0.4
+ * license     MIT License
+ * website     https://www.main12.com
+ * Copyright (c) 2024 MAIN 12 LLC
+ * 
+ * @brief:
  * This script serves as the primary control structure for the CONVEYOR MULTI-22,
  * developed by Multiplo Colombia S.A.S. It is designed to be compiled with Visual
  * Studio Code using the PlatformIO plugin. The code is self-contained, including
@@ -18,9 +21,7 @@
  * For detailed documentation on the architecture, please refer to the attached
  * documentation within the project folder, or reach out directly to Main12 LLC.
  *
- * ==============================================================================
- * MIT License
- * Copyright (c) 2024 MAIN 12 LLC
+ **********************************************************************************
  */
 
 #include "conveyor_state_handler.h"
@@ -40,5 +41,4 @@ void loop()
   // processSerialCommands();
   conveyourMain();
   // testGoldenOutput();
-  // writeToSD(logEntry);
 }

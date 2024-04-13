@@ -12,13 +12,8 @@
  * ******************************************************************************
  */
 
-#include "setup_functions.h"
-
-void dualWrite(byte pin1, byte pin2, byte S1, byte S2)
-{
-  digitalWrite(pin1, S1);
-  digitalWrite(pin2, S2);
-}
+#include "00_setup_functions.h"
+unsigned long batteryPreviousMillis = 0;
 
 void TrafficLight(byte pin1, byte pin2, byte pin3, byte S1, byte S2, byte S3)
 {
@@ -33,22 +28,22 @@ byte batteryCheck_3ligths(int BCP)
   switch (BCP)
   {
   case 0 ... 39:
-    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
+    TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, HIGH);
     break;
   case 40 ... 42:
 
     if (millis() - blinkMillis >= blinkInterval)
     {
-      TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, !digitalRead(batteryRedLigth));
+      TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, !digitalRead(batteryRedLigth_o));
       blinkMillis = millis();
     }
 
     break;
   case 43 ... 45:
-    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, HIGH, LOW);
+    TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, HIGH, LOW);
     break;
   case 46 ... 55:
-    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, HIGH, LOW, LOW);
+    TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, HIGH, LOW, LOW);
     break;
   }
   return BCP;
@@ -59,19 +54,19 @@ byte standByBatteryCheck(int BCP)
   switch (BCP)
   {
   case 0 ... 39:
-    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
+    TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, HIGH);
     break;
   case 40 ... 42:
 
     if (millis() - blinkMillis >= blinkInterval)
     {
-      TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, !digitalRead(batteryRedLigth));
+      TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, !digitalRead(batteryRedLigth_o));
       blinkMillis = millis();
     }
 
     break;
   case 43 ... 100:
-    TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, LOW);
+    TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, LOW);
     break;
   }
   return BCP;
@@ -79,21 +74,21 @@ byte standByBatteryCheck(int BCP)
 
 byte bateryLightTesting()
 {
-  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, HIGH, LOW, LOW);
+  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, HIGH, LOW, LOW);
   delay(1500);
-  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, HIGH, LOW);
+  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, HIGH, LOW);
   delay(1500);
-  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
+  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, HIGH);
   delay(500);
-  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, LOW);
+  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, LOW);
   delay(500);
-  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
+  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, HIGH);
   delay(500);
-  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, LOW);
+  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, LOW);
   delay(500);
-  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, HIGH);
+  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, HIGH);
   delay(500);
-  TrafficLight(batteryGreenLigth, batteryYellowLigth, batteryRedLigth, LOW, LOW, LOW);
+  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, LOW);
   delay(500);
   return 0;
 }
@@ -102,19 +97,16 @@ void testBatteryIndicator()
   bateryLightTesting();
 }
 
-
 byte batteryCheck()
 {
-  // Check if it's time to run the function
   if (!batteryForceCheck && millis() - batteryPreviousMillis >= batteryInterval)
   {
     batteryPreviousMillis = millis();
 
     bms.update();
-    float voltage = bms.get.packVoltage;
-    byte BCP = int(voltage);
+    int voltage = bms.get.packVoltage;
 
-    return batteryCheck_3ligths(int(voltage));
+    return batteryCheck_3ligths(voltage);
   }
   else
   {
@@ -130,10 +122,9 @@ byte batteryCheckStandBy()
     batteryPreviousMillis = millis();
 
     bms.update();
-    float voltage = bms.get.packVoltage;
-    byte BCP = int(voltage);
+    int voltage = bms.get.packVoltage;
 
-    return standByBatteryCheck(int(voltage));
+    return standByBatteryCheck(voltage);
   }
   else
   {
@@ -141,25 +132,23 @@ byte batteryCheckStandBy()
   }
 }
 
+byte performBatteryCheck(unsigned long &previousMillis, unsigned long interval, byte (*checkFunction)(int))
+{
+  if (!batteryForceCheck && millis() - previousMillis >= interval)
+  {
+    previousMillis = millis();
+    batteryForceCheck = false;
 
-// byte performBatteryCheck(unsigned long &previousMillis, unsigned long interval, byte (*checkFunction)(int))
-// {
-//   if (!batteryForceCheck && millis() - previousMillis >= interval)
-//   {
-//     previousMillis = millis();
-//     batteryForceCheck = false;
+    bms.update();
+    int voltage = bms.get.packVoltage;
 
-//     bms.update();
-//     float voltage = bms.get.packVoltage;
-//     byte BCP = int(voltage);
-
-//     return checkFunction(int(voltage));
-//   }
-//   else
-//   {
-//     return 0;
-//   }
-// }
+    return checkFunction(voltage);
+  }
+  else
+  {
+    return 0;
+  }
+}
 
 // byte batteryCheck()
 // {
@@ -171,4 +160,4 @@ byte batteryCheckStandBy()
 //   batteryForceCheck = true;
 //   return performBatteryCheck(batteryPreviousMillis, batteryIntervalStandBy, standByBatteryCheck);
 // }
-#endif
+#endif //BATTERY_MANAGEMENT_H

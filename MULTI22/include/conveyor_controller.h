@@ -12,8 +12,9 @@
  * ******************************************************************************
  */
 
-#include "setup_functions.h"
-#include "battery_management.h"
+#include "00_setup_functions.h"
+byte elevationState = 0;
+byte brakesState = 0;
 
 // ================================= FUNCIONES ==================================
 
@@ -56,6 +57,12 @@ void brakes()
   }
 }
 
+void dualWrite(byte pin1, byte pin2, byte S1, byte S2)
+{
+  digitalWrite(pin1, S1);
+  digitalWrite(pin2, S2);
+}
+
 void elevation()
 {
   switch (elevationState)
@@ -96,4 +103,4 @@ void EMERGENCY_STOP()
     digitalWrite(DIGITAL_OUTPUTS[i], LOW);
   }
 }
-#endif //CONVEYOR_H
+#endif // CONVEYOR_CONTROLLER_H

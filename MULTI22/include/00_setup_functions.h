@@ -18,12 +18,20 @@
 #include "WProgram.h"
 #endif
 #include "Config.h"
+#include <SoftwareSerial.h>
+#include <daly-bms-uart.h>
 
 #ifdef Debug_Mode
 bool debugMode = true;
 #else
 bool debugMode = false;
 #endif
+
+SoftwareSerial customSerial(rxPin, txPin);
+Daly_BMS_UART bms(customSerial);
+
+byte DIGITAL_INPUTS[] = {start_i, eStop_i, CFWR_i, CRWD_i, CStop_i, batteryVoltage_i};
+byte DIGITAL_OUTPUTS[] = {power_o, CSpeed_o, CReverse_o, batteryState1_o, batteryState2_o, batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o};
 
 void printHeader()
 {
@@ -60,7 +68,7 @@ void setupMain(int baud = 9600)
         ;
     printHeader();
     configureConveyorPins();
-    initializeBMSviaSerial();
+    bms.Init();
 }
 
 #endif // SETUP_FUNCTIONS_H
