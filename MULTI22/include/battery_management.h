@@ -16,144 +16,166 @@
 unsigned long batteryPreviousMillis = 0;
 int batteryVoltage;
 
-void TrafficLight(byte pin1, byte pin2, byte pin3, byte S1, byte S2, byte S3)
+enum BatteryMode
 {
-  digitalWrite(pin1, S1);
-  digitalWrite(pin2, S2);
-  digitalWrite(pin3, S3);
+  _NORMAL,
+  _STAND_BY,
+  _CHARGING
+};
+
+/**
+ * Controls a traffic light by setting the states of its individual LEDs.
+ *
+ * @param greenState    The state (HIGH/LOW) to set the green LED.
+ * @param yellowState   The state (HIGH/LOW) to set the yellow LED.
+ * @param redState      The state (HIGH/LOW) to set the red LED.
+ * @param greenPin      The pin number of the green LED. Default is batteryGreenLigth_o.
+ * @param yellowPin     The pin number of the yellow LED. Default is batteryYellowLigth_o.
+ * @param redPin        The pin number of the red LED. Default is batteryRedLigth_o.
+ */
+void controlTrafficLight(
+    byte greenState,
+    byte yellowState,
+    byte redState,
+    byte greenPin = batteryGreenLigth_o,
+    byte yellowPin = batteryYellowLigth_o,
+    byte redPin = batteryRedLigth_o)
+{
+  digitalWrite(greenPin, greenState);   // Set the state of the green LED
+  digitalWrite(yellowPin, yellowState); // Set the state of the yellow LED
+  digitalWrite(redPin, redState);       // Set the state of the red LED
 }
 
-int batteryCheck_3ligths(int BCP)
+/**
+ * Updates the traffic light based on the battery voltage level.
+ *
+ * @param batteryVoltage The voltage level of the battery.
+ * @return The input battery voltage.
+ */
+// updateTrafficLightByVoltage(int batteryVoltage)
+int updateTrafficLightByVoltage(int batteryVoltage, BatteryMode mode = _NORMAL)
 {
-  // byte BCP = map(analogRead(voltage), batteryMaxVoltage, batteryMaxVoltage, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
-  switch (BCP)
+  bool isStandbyMode = (mode == _STAND_BY);
+  switch (batteryVoltage)
   {
   case 0 ... 39:
-    TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, HIGH);
+    controlTrafficLight(LOW, LOW, HIGH);
     break;
   case 40 ... 42:
 
     if (millis() - blinkMillis >= blinkInterval)
     {
-      TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, !digitalRead(batteryRedLigth_o));
+      controlTrafficLight(LOW, LOW, !digitalRead(batteryRedLigth_o));
       blinkMillis = millis();
     }
 
     break;
   case 43 ... 45:
-    TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, HIGH, LOW);
+    isStandbyMode ? controlTrafficLight(LOW, LOW, LOW) : controlTrafficLight(LOW, HIGH, LOW);
     break;
   case 46 ... 55:
-    TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, HIGH, LOW, LOW);
+    isStandbyMode ? controlTrafficLight(LOW, LOW, LOW) : controlTrafficLight(HIGH, LOW, LOW);
     break;
   }
-  return BCP;
+  return batteryVoltage;
 }
 
-int standByBatteryCheck(int BCP)
+int standByBatteryCheck(int batteryVoltage)
 {
-  switch (BCP)
+  switch (batteryVoltage)
   {
-  case 0 ... 39:
+  case 0 ... 42:
     if (millis() - blinkMillis >= blinkInterval)
     {
-      TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, !digitalRead(batteryRedLigth_o));
+      controlTrafficLight(LOW, LOW, !digitalRead(batteryRedLigth_o));
       blinkMillis = millis();
     }
     break;
-  case 40 ... 42:
 
-    if (millis() - blinkMillis >= blinkInterval)
-    {
-      TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, !digitalRead(batteryRedLigth_o));
-      blinkMillis = millis();
-    }
-
-    break;
   case 43 ... 100:
-    TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, LOW);
+    controlTrafficLight(LOW, LOW, LOW);
     break;
   }
-  return BCP;
+  return batteryVoltage;
 }
 
-byte bateryLightTesting()
+/**
+ * Simulates battery indicator testing by controlling traffic light LEDs.
+ * 
+ * @param greenState  The state (HIGH/LOW) of the green LED.
+ * @param yellowState The state (HIGH/LOW) of the yellow LED.
+ * @param redState    The state (HIGH/LOW) of the red LED.
+ * @param duration    The duration (in milliseconds) to maintain the states.
+ */
+void simulateBatteryIndicator(byte greenState, byte yellowState, byte redState, int duration)
 {
-  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, HIGH, LOW, LOW);
-  delay(1500);
-  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, HIGH, LOW);
-  delay(1500);
-  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, HIGH);
-  delay(500);
-  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, LOW);
-  delay(500);
-  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, HIGH);
-  delay(500);
-  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, LOW);
-  delay(500);
-  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, HIGH);
-  delay(500);
-  TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, LOW);
-  delay(500);
-  return 0;
+  controlTrafficLight(greenState, yellowState, redState);
+  delay(duration);
 }
+/**
+ * Tests the battery indicator by simulating different states.
+ */
 void testBatteryIndicator()
 {
-  bateryLightTesting();
+  simulateBatteryIndicator(HIGH, LOW , LOW , 1500);
+  simulateBatteryIndicator(LOW , HIGH, LOW , 1500);
+  simulateBatteryIndicator(LOW , LOW , HIGH,  500);
+  simulateBatteryIndicator(LOW , LOW , LOW ,  500);
+  simulateBatteryIndicator(LOW , LOW , HIGH,  500);
+  simulateBatteryIndicator(LOW , LOW , LOW ,  500);
+  simulateBatteryIndicator(LOW , LOW , HIGH,  500);
+  simulateBatteryIndicator(LOW , LOW , LOW ,  500);
 }
 
-int batteryCheck()
+/**
+ * Performs a battery check based on the specified mode.
+ *
+ * @param mode The mode in which the battery check should be performed. Default is _NORMAL.
+ *             Possible values are _NORMAL, _STAND_BY, and _CHARGING.
+ *             - _NORMAL: Perform a normal battery check.
+ *             - _STAND_BY: Perform a battery check in standby mode.
+ *             - _CHARGING: Perform a battery check during charging.
+ * @return The result of the battery check.
+ */
+int performBatteryCheck(BatteryMode mode = _NORMAL)
 {
-  if (batteryForceCheck || millis() - batteryPreviousMillis >= batteryInterval)
+  bool isStandbyMode = (mode == _STAND_BY);
+  bool shouldForceBatteryCheck = isStandbyMode ? !batteryForceCheck : batteryForceCheck;
+  if (shouldForceBatteryCheck || millis() - batteryPreviousMillis >= batteryCheckInterval)
   {
-    batteryPreviousMillis = millis();
-    batteryForceCheck = false;
-
     bms.update();
+    batteryPreviousMillis = millis();
+    batteryForceCheck = !isStandbyMode;
     batteryVoltage = bms.get.packVoltage;
   }
-  return batteryCheck_3ligths(batteryVoltage);
+  return isStandbyMode ? standByBatteryCheck(batteryVoltage) : updateTrafficLightByVoltage(batteryVoltage);
 }
+int batteryCheck() { return performBatteryCheck(); }
+int batteryCheckStandBy() { return performBatteryCheck(_STAND_BY); }
 
-int batteryCheckStandBy()
-{
-  if (!batteryForceCheck || millis() - batteryPreviousMillis >= batteryIntervalStandBy)
-  {
-    batteryPreviousMillis = millis();
-    batteryForceCheck = true;
-
-    bms.update();
-    batteryVoltage = bms.get.packVoltage;
-  }
-  return standByBatteryCheck(batteryVoltage);
-}
-
-// byte performBatteryCheck(unsigned long &previousMillis, unsigned long interval, byte (*checkFunction)(int))
+// int batteryCheck()
 // {
-//   if (batteryForceCheck || millis() - previousMillis >= interval)
+//   if (batteryForceCheck || millis() - batteryPreviousMillis >= batteryInterval)
 //   {
-//     previousMillis = millis();
+//     batteryPreviousMillis = millis();
 //     batteryForceCheck = false;
 
 //     bms.update();
-//     int voltage = bms.get.packVoltage;
-
-//     return checkFunction(voltage);
+//     batteryVoltage = bms.get.packVoltage;
 //   }
-//   else
+//   return updateTrafficLightByVoltage(batteryVoltage);
+// }
+
+// int batteryCheckStandBy()
+// {
+//   if (!batteryForceCheck || millis() - batteryPreviousMillis >= batteryIntervalStandBy)
 //   {
-//     return 0;
+//     batteryPreviousMillis = millis();
+//     batteryForceCheck = true;
+
+//     bms.update();
+//     batteryVoltage = bms.get.packVoltage;
 //   }
-// }
-
-// byte batteryCheck()
-// {
-//   return performBatteryCheck(batteryPreviousMillis, batteryInterval, batteryCheck_3ligths);
-// }
-
-// byte batteryCheckStandBy()
-// {
-//   batteryForceCheck = true;
-//   return performBatteryCheck(batteryPreviousMillis, batteryIntervalStandBy, standByBatteryCheck);
+//   return standByBatteryCheck(batteryVoltage);
 // }
 #endif // BATTERY_MANAGEMENT_H
