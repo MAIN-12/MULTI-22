@@ -110,8 +110,7 @@ int batteryCheck()
 
     bms.update();
     int voltage = bms.get.packVoltage;
-    Serial.print("Battery Voltage: ");
-    Serial.print(voltage);
+
     return batteryCheck_3ligths(voltage);
   }
   else
@@ -122,14 +121,14 @@ int batteryCheck()
 
 int batteryCheckStandBy()
 {
-  if (batteryForceCheck || millis() - batteryPreviousMillis >= batteryIntervalStandBy)
+  if (!batteryForceCheck || millis() - batteryPreviousMillis >= batteryIntervalStandBy)
   {
-    batteryForceCheck = true;
     batteryPreviousMillis = millis();
+    batteryForceCheck = true;
+
     bms.update();
     int voltage = bms.get.packVoltage;
-    Serial.print("Battery StandBy Voltage: ");
-    Serial.println(voltage);
+
     return standByBatteryCheck(voltage);
   }
   else
