@@ -28,14 +28,7 @@ int batteryCheck_3ligths(int BCP)
   switch (BCP)
   {
   case 0 ... 39:
-    // TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, HIGH);
-
-    if (millis() - blinkMillis >= blinkInterval)
-    {
-      TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, !digitalRead(batteryRedLigth_o));
-      blinkMillis = millis();
-    }
-
+    TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, HIGH);
     break;
   case 40 ... 42:
 
@@ -61,7 +54,11 @@ int standByBatteryCheck(int BCP)
   switch (BCP)
   {
   case 0 ... 39:
-    TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, HIGH);
+    if (millis() - blinkMillis >= blinkInterval)
+    {
+      TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, !digitalRead(batteryRedLigth_o));
+      blinkMillis = millis();
+    }
     break;
   case 40 ... 42:
 
@@ -132,7 +129,7 @@ int batteryCheckStandBy()
     bms.update();
     int voltage = bms.get.packVoltage;
     Serial.print("Battery StandBy Voltage: ");
-    Serial.print(voltage);
+    Serial.println(voltage);
     return standByBatteryCheck(voltage);
   }
   else
