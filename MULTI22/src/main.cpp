@@ -5,7 +5,7 @@
  * @file        main.cpp
  * @author      Juan Carlos Botero
  * @date        04/06/2024
- * @version     3.0.4
+ * @version     3.1.0
  * license     MIT License
  * website     https://www.main12.com
  * Copyright (c) 2024 MAIN 12 LLC
