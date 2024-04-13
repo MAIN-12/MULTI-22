@@ -22,7 +22,7 @@
 */
 
 // =============== CODE VERSION =================================================
-const String version = "3.0.4. dev: 04";
+const String version = "3.0.4. dev: 05";
 char update[] = "04-12-2024";
 char ID[] = "XXXX001MULTI22";
 

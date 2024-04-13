@@ -97,48 +97,47 @@ void testBatteryIndicator()
   bateryLightTesting();
 }
 
-int batteryCheck()
-{
-  Serial.print("Battery Function in ");
-  if (!batteryForceCheck || millis() - batteryPreviousMillis >= batteryInterval)
-  {
-    batteryPreviousMillis = millis();
+// int batteryCheck()
+// {
+//   if (batteryForceCheck || millis() - batteryPreviousMillis >= batteryInterval)
+//   {
+//     batteryPreviousMillis = millis();
+//     batteryForceCheck = false;
 
-    bms.update();
-    int voltage = bms.get.packVoltage;
-    Serial.print("Battery Voltage: ");
-    Serial.print(voltage);
-    return batteryCheck_3ligths(voltage);
-  }
-  else
-  {
-    return 0;
-  }
-}
+//     bms.update();
+//     int voltage = bms.get.packVoltage;
+//     Serial.print("Battery Voltage: ");
+//     Serial.print(voltage);
+//     return batteryCheck_3ligths(voltage);
+//   }
+//   else
+//   {
+//     return 0;
+//   }
+// }
 
-int batteryCheckStandBy()
-{
-Serial.print("Battery StandBy in");
-  batteryForceCheck = true;
-  if (!batteryForceCheck || millis() - batteryPreviousMillis >= batteryIntervalStandBy)
-  {
-    batteryPreviousMillis = millis();
-
-    bms.update();
-    int voltage = bms.get.packVoltage;
-    Serial.print("Battery StandBy Voltage: ");
-    Serial.print(voltage);
-    return standByBatteryCheck(voltage);
-  }
-  else
-  {
-    return 0;
-  }
-}
+// int batteryCheckStandBy()
+// {
+//   batteryForceCheck = true;
+//   if (batteryForceCheck || millis() - batteryPreviousMillis >= batteryIntervalStandBy)
+//   {
+//     batteryPreviousMillis = millis();
+//     batteryForceCheck = false;
+//     bms.update();
+//     int voltage = bms.get.packVoltage;
+//     Serial.print("Battery StandBy Voltage: ");
+//     Serial.print(voltage);
+//     return standByBatteryCheck(voltage);
+//   }
+//   else
+//   {
+//     return 0;
+//   }
+// }
 
 byte performBatteryCheck(unsigned long &previousMillis, unsigned long interval, byte (*checkFunction)(int))
 {
-  if (!batteryForceCheck || millis() - previousMillis >= interval)
+  if (batteryForceCheck || millis() - previousMillis >= interval)
   {
     previousMillis = millis();
     batteryForceCheck = false;
@@ -154,14 +153,14 @@ byte performBatteryCheck(unsigned long &previousMillis, unsigned long interval, 
   }
 }
 
-// byte batteryCheck()
-// {
-//   return performBatteryCheck(batteryPreviousMillis, batteryInterval, batteryCheck_3ligths);
-// }
+byte batteryCheck()
+{
+  return performBatteryCheck(batteryPreviousMillis, batteryInterval, batteryCheck_3ligths);
+}
 
-// byte batteryCheckStandBy()
-// {
-//   batteryForceCheck = true;
-//   return performBatteryCheck(batteryPreviousMillis, batteryIntervalStandBy, standByBatteryCheck);
-// }
+byte batteryCheckStandBy()
+{
+  batteryForceCheck = true;
+  return performBatteryCheck(batteryPreviousMillis, batteryIntervalStandBy, standByBatteryCheck);
+}
 #endif // BATTERY_MANAGEMENT_H
