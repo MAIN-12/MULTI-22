@@ -11,7 +11,23 @@ The provided codebase manages a system responsible for controlling and monitorin
 
 [REPO](https://github.com/CharlieProjects/MULTI-19)
 
-## Instructions <a name="version-control"></a>
+## Instructions <a name="instructions"></a>
+To use this code:
+
+1. Install Visual Studio Code and PlatformIO.
+2. Ensure you have either a Controlino micro or a Norvi IoT device available.
+3. Modify the board definition in the PlatformIO configuration to match the device you are using.
+4. Upload the code to the controller using PlatformIO.
+5. Once uploaded, open the serial monitor. If everything loads up as expected, you should see the following message in the serial monitor:
+
+==============================================
+================== MAIN 12 ===================
+========== Multiplo Colombia S.A.S ===========
+==============================================
+
+Author: Juan C Botero
+Support: https://main12.com/
+Version: {current version}
 
 
 ## Version Control Log <a name="description"></a>
