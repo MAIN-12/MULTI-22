@@ -20,15 +20,6 @@ To use this code:
 4. Upload the code to the controller using PlatformIO.
 5. Once uploaded, open the serial monitor. If everything loads up as expected, you should see the following message in the serial monitor:
 
-==============================================
-================== MAIN 12 ===================
-========== Multiplo Colombia S.A.S ===========
-==============================================
-
-Author: Juan C Botero
-Support: https://main12.com/
-Version: {current version}
-
 
 ## Version Control Log <a name="description"></a>
 
