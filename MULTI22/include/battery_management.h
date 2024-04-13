@@ -100,7 +100,7 @@ void testBatteryIndicator()
 int batteryCheck()
 {
   Serial.print("Battery Function in ");
-  if (!batteryForceCheck && millis() - batteryPreviousMillis >= batteryInterval)
+  if (!batteryForceCheck || millis() - batteryPreviousMillis >= batteryInterval)
   {
     batteryPreviousMillis = millis();
 
