@@ -26,6 +26,8 @@ const String version = "3.1.0.";
 char update[] = "04-12-2024";
 char ID[] = "XXXX001MULTI22";
 
+#define BOARD CONTROLLINO
+
 // ================ INPUTS ======================================================
 #define start_i 3          // START selector,  (Must be a hardware interrupt pin)
 #define eStop_i 2          // STOP button,     (Must be a hardware interrupt pin)
@@ -95,14 +97,14 @@ const int blinkInterval = 500;
 const int brakeTime = 1000;
 
 //============== BATTERY ========================================================
-bool batteryForceCheck = true;
+bool  batteryForceCheck = true;
 float batteryMinVoltage = 38;     // [v]
 float batteryMaxVoltage = 55;     // [v]
 float batteryCharginVoltage = 58; // [v]
 
-byte BatteryLowLevel = 43;
-byte BatteryMidLevel = 45;
-byte BatteryFullCharge = 55;
+byte BatteryLowLevel = 43;        // [v]
+byte BatteryMidLevel = 45;        // [v]
+byte BatteryFullCharge = 55;      // [v]
 
 const long batteryCheckInterval = 30000;
 const long batteryInterval = 30000;//this command is being deprocated

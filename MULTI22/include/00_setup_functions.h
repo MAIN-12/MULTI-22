@@ -30,8 +30,23 @@ bool debugMode = false;
 SoftwareSerial customSerial(rxPin, txPin);
 Daly_BMS_UART bms(customSerial);
 
-byte DIGITAL_INPUTS[] = {start_i, eStop_i, CFWR_i, CRWD_i, CStop_i, batteryVoltage_i};
-byte DIGITAL_OUTPUTS[] = {power_o, CSpeed_o, CReverse_o, batteryState1_o, batteryState2_o, batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o};
+byte DIGITAL_INPUTS[] = {
+    start_i,
+    eStop_i,
+    CFWR_i,
+    CRWD_i,
+    CStop_i,
+    batteryVoltage_i};
+
+byte DIGITAL_OUTPUTS[] = {
+    power_o,
+    CSpeed_o,
+    CReverse_o,
+    batteryState1_o,
+    batteryState2_o,
+    batteryGreenLigth_o,
+    batteryYellowLigth_o,
+    batteryRedLigth_o};
 
 void printHeader()
 {
