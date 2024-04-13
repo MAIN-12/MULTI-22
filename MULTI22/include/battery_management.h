@@ -22,7 +22,7 @@ void TrafficLight(byte pin1, byte pin2, byte pin3, byte S1, byte S2, byte S3)
   digitalWrite(pin3, S3);
 }
 
-byte batteryCheck_3ligths(int BCP)
+int batteryCheck_3ligths(int BCP)
 {
   // byte BCP = map(analogRead(voltage), batteryMaxVoltage, batteryMaxVoltage, 0, 100); // Configure Shunt ranges or implementa a diferent eq if necesary.
   switch (BCP)
@@ -49,7 +49,7 @@ byte batteryCheck_3ligths(int BCP)
   return BCP;
 }
 
-byte standByBatteryCheck(int BCP)
+int standByBatteryCheck(int BCP)
 {
   switch (BCP)
   {
@@ -97,7 +97,7 @@ void testBatteryIndicator()
   bateryLightTesting();
 }
 
-byte batteryCheck()
+int batteryCheck()
 {
   if (!batteryForceCheck && millis() - batteryPreviousMillis >= batteryInterval)
   {
@@ -105,7 +105,8 @@ byte batteryCheck()
 
     bms.update();
     int voltage = bms.get.packVoltage;
-
+    Serial.print("Battery Voltage: ");
+    Serial.print(voltage);
     return batteryCheck_3ligths(voltage);
   }
   else
@@ -114,8 +115,9 @@ byte batteryCheck()
   }
 }
 
-byte batteryCheckStandBy()
+int batteryCheckStandBy()
 {
+
   batteryForceCheck = true;
   if (!batteryForceCheck && millis() - batteryPreviousMillis >= batteryIntervalStandBy)
   {
@@ -123,7 +125,8 @@ byte batteryCheckStandBy()
 
     bms.update();
     int voltage = bms.get.packVoltage;
-
+    Serial.print("Battery StandBy Voltage: ");
+    Serial.print(voltage);
     return standByBatteryCheck(voltage);
   }
   else
@@ -160,4 +163,4 @@ byte performBatteryCheck(unsigned long &previousMillis, unsigned long interval, 
 //   batteryForceCheck = true;
 //   return performBatteryCheck(batteryPreviousMillis, batteryIntervalStandBy, standByBatteryCheck);
 // }
-#endif //BATTERY_MANAGEMENT_H
+#endif // BATTERY_MANAGEMENT_H

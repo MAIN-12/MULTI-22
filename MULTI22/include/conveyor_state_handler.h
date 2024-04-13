@@ -1,5 +1,5 @@
-#ifndef CSTATE_H
-#define CSTATE_H
+#ifndef CONVEYOR_STATE_HANDLER_H
+#define CONVEYOR_STATE_HANDLER_H
 
 /********************************************************************************
  * @file        conveyor_state_handler.h
