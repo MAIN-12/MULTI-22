@@ -18,7 +18,7 @@ To use this code:
 2. Ensure you have either a Controlino micro or a Norvi IoT device available.
 3. Modify the board definition in the PlatformIO configuration to match the device you are using.
 4. Upload the code to the controller using PlatformIO.
-5. Once uploaded, open the serial monitor. If everything loads up as expected, you should see the following message in the serial monitor:
+5. Once uploaded, open the serial monitor. If everything loads up as expected, you should see the current version of tee code in the serial monitor:
 
 
 ## Version Control Log <a name="description"></a>
