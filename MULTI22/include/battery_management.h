@@ -28,7 +28,14 @@ int batteryCheck_3ligths(int BCP)
   switch (BCP)
   {
   case 0 ... 39:
-    TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, HIGH);
+    // TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, HIGH);
+
+    if (millis() - blinkMillis >= blinkInterval)
+    {
+      TrafficLight(batteryGreenLigth_o, batteryYellowLigth_o, batteryRedLigth_o, LOW, LOW, !digitalRead(batteryRedLigth_o));
+      blinkMillis = millis();
+    }
+
     break;
   case 40 ... 42:
 
@@ -116,24 +123,23 @@ void testBatteryIndicator()
 //   }
 // }
 
-// int batteryCheckStandBy()
-// {
-//   batteryForceCheck = true;
-//   if (batteryForceCheck || millis() - batteryPreviousMillis >= batteryIntervalStandBy)
-//   {
-//     batteryPreviousMillis = millis();
-//     batteryForceCheck = false;
-//     bms.update();
-//     int voltage = bms.get.packVoltage;
-//     Serial.print("Battery StandBy Voltage: ");
-//     Serial.print(voltage);
-//     return standByBatteryCheck(voltage);
-//   }
-//   else
-//   {
-//     return 0;
-//   }
-// }
+int batteryCheckStandBy()
+{
+  batteryForceCheck = true;
+  if (batteryForceCheck || millis() - batteryPreviousMillis >= batteryIntervalStandBy)
+  {
+    batteryPreviousMillis = millis();
+    bms.update();
+    int voltage = bms.get.packVoltage;
+    Serial.print("Battery StandBy Voltage: ");
+    Serial.print(voltage);
+    return standByBatteryCheck(voltage);
+  }
+  else
+  {
+    return 0;
+  }
+}
 
 byte performBatteryCheck(unsigned long &previousMillis, unsigned long interval, byte (*checkFunction)(int))
 {
@@ -158,9 +164,9 @@ byte batteryCheck()
   return performBatteryCheck(batteryPreviousMillis, batteryInterval, batteryCheck_3ligths);
 }
 
-byte batteryCheckStandBy()
-{
-  batteryForceCheck = true;
-  return performBatteryCheck(batteryPreviousMillis, batteryIntervalStandBy, standByBatteryCheck);
-}
+// byte batteryCheckStandBy()
+// {
+//   batteryForceCheck = true;
+//   return performBatteryCheck(batteryPreviousMillis, batteryIntervalStandBy, standByBatteryCheck);
+// }
 #endif // BATTERY_MANAGEMENT_H
