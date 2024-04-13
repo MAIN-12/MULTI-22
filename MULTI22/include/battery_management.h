@@ -14,7 +14,7 @@
 
 #include "00_setup_functions.h"
 unsigned long batteryPreviousMillis = 0;
-int Batteryvoltage;
+int batteryVoltage;
 
 void TrafficLight(byte pin1, byte pin2, byte pin3, byte S1, byte S2, byte S3)
 {
@@ -110,9 +110,9 @@ int batteryCheck()
     batteryForceCheck = false;
 
     bms.update();
-    Batteryvoltage = bms.get.packVoltage;
+    batteryVoltage = bms.get.packVoltage;
   }
-  return batteryCheck_3ligths(Batteryvoltage);
+  return batteryCheck_3ligths(batteryVoltage);
 }
 
 int batteryCheckStandBy()
@@ -123,10 +123,9 @@ int batteryCheckStandBy()
     batteryForceCheck = true;
 
     bms.update();
-    Batteryvoltage = bms.get.packVoltage;
+    batteryVoltage = bms.get.packVoltage;
   }
-  
-  return standByBatteryCheck(Batteryvoltage);
+  return standByBatteryCheck(batteryVoltage);
 }
 
 // byte performBatteryCheck(unsigned long &previousMillis, unsigned long interval, byte (*checkFunction)(int))
