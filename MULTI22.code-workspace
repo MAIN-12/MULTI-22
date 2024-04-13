@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "MULTI22",
+			"path": "MULTI22"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"cstddef": "cpp"
+		}
+	}
+}
