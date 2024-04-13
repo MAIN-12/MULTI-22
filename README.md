@@ -21,7 +21,7 @@ To use this code:
 5. Once uploaded, open the serial monitor. If everything loads up as expected, you should see the current version of tee code in the serial monitor:
 
 
-## Version Control Log <a name="description"></a>
+## Version Control Log <a name="version-control"></a>
 
 ### Version 3.1.0:
 - Code Clean Up
