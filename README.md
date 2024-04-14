@@ -1,5 +1,15 @@
 # MULTI-19
 
+[REPO](https://github.com/MAIN-12/MULTI-22)
+
+## Description <a name="description"></a>
+
+Our codebase is meticulously crafted to manage and monitor various aspects of our conveyor system. With a focus on continuous improvement, we ensure seamless operations, reliability, and efficiency.
+
+This program serves as the central control structure for the CONVEYOR MULTI-22, developed by Multiplo Colombia S.A.S. It is designed to be compiled using Visual Studio Code with the PlatformIO plugin. The code is self-contained, comprising all necessary external libraries located in the "lib" folder, along with auxiliary functions and reusable resources in the "include" folder.
+
+The programming architecture is founded on object-oriented finite state machines. For detailed documentation on the architecture, please refer to the accompanying documentation within the project folder or reach out directly to Main12 LLC.
+
 ## Table of Contents
 1. [Description](#description)
 2. [Key Features](#key-features)
@@ -8,14 +18,6 @@
 5. [Documentation](#documentation)
 6. [Version Control](#version-control)
 
-## Description <a name="description"></a>
-[REPO](https://github.com/MAIN-12/MULTI-22)
-
-Our codebase is meticulously crafted to manage and monitor various aspects of our conveyor system. With a focus on continuous improvement, we ensure seamless operations, reliability, and efficiency.
-
-This program serves as the central control structure for the CONVEYOR MULTI-22, developed by Multiplo Colombia S.A.S. It is designed to be compiled using Visual Studio Code with the PlatformIO plugin. The code is self-contained, comprising all necessary external libraries located in the "lib" folder, along with auxiliary functions and reusable resources in the "include" folder.
-
-The programming architecture is founded on object-oriented finite state machines. For detailed documentation on the architecture, please refer to the accompanying documentation within the project folder or reach out directly to Main12 LLC.
 
 ## Key Features <a name="key-features"></a>
 - **Comprehensive Control:** Regulate and oversee the entire conveyor system with precision.
