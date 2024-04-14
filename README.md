@@ -52,12 +52,26 @@ To use this code:
 - Implementation of a Shunt battery reader (never tested)
 - Optimization of the State Handeler Function.
 
+### Version 2.2.0:
+- Fixed bugs cousing inestabilities in the Conveyor State ahndeler.
+- Remove the Blyng Iot configurations.
+
 ### Version 2.1.1:
-- Fixed bugs cousing inestabilities in the Conveyor State ahndeler. 
+- Fixed bugs cousing inestabilities in the Conveyor State ahndeler.
+- Remove the Blyng Iot configurations.
 
 ### Version 2.1.0:
 - Implementation of Breaking Routin functions. (Never implemented in the Real Conveyor)
 - Set up the pin Layout to work with the controller COntrolino Mini.
+
+### Version 2.0.5:
+- Multy Tread prosesor Set Up with RTOS.
+
+### Version 2.0.4:
+- Blynk Iot configuration bugs fix.
+
+### Version 2.0.3:
+- Blynk Iot Set Up.
 
 ### Version 2.0.3:
 - Ambient control variables Temp and Humidity lib install. (Never actually used.)
