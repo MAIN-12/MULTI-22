@@ -41,6 +41,26 @@ void ConveyorControl(float ref)
   delay(delta * 1000);
 }
 
+// const float time_step = 5;
+// const float VelMin = 75; // 75
+// const float VelMax = 160;
+// float current_control_signal = VelMin;
+// float previous_control_signal = VelMin;
+// bool is_reversed;
+
+// void ConveyorControl(float reference_speed)
+// {
+//   float Tau = time_step / 5;                                                                                    // Set the time constant (Tau) for the control system
+//   float delta = 0.01;                                                                                           // Set the time increment for the control calculation
+//   float previous_control_signal = current_control_signal;                                                       // Store the previous control signal value
+//   current_control_signal = (reference_speed - previous_control_signal) * delta / Tau + previous_control_signal; // Calculate the new control signal using a first-order system approximation
+//   previous_control_signal = current_control_signal;                                                             // Store the current control signal for future reference
+//   bool is_reversed = (current_control_signal < 0);                                                              // Determine the direction of rotation based on the control signal
+//   analogWrite(CSpeed_o, abs(ceil(current_control_signal)));                                    // Set the motor speed based on the absolute value of the control signal
+//   digitalWrite(CReverse_o, is_reversed);                                                       // Set the motor direction based on the direction of rotation
+//   delay(delta * 1000);
+// }
+
 void brakes()
 {
   switch (brakesState)
@@ -91,16 +111,5 @@ void illumination()
   dualWrite(beacon_o, reflector_o, digitalRead(swBeacon_i), digitalRead(swReflector_i));
 }
 
-void EMERGENCY_STOP()
-{
-  digitalWrite(power_o, LOW);
-  analogWrite(CSpeed_o, LOW);
-  digitalWrite(CReverse_o, LOW);
 
-  for (byte i = 0; i < sizeof(DIGITAL_OUTPUTS); i++)
-  {
-    pinMode(DIGITAL_OUTPUTS[i], OUTPUT);
-    digitalWrite(DIGITAL_OUTPUTS[i], LOW);
-  }
-}
 #endif // CONVEYOR_CONTROLLER_H

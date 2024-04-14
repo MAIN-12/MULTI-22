@@ -36,15 +36,8 @@ MainFSMState previousState = STAND_BY;
 ConveyorFSMState currentConveyorState = STOP;
 ConveyorFSMState previousConveyorState = STOP;
 
-int getConveyorState()
-{
-    return currentConveyorState;
-}
-
-int getGeneralState()
-{
-    return currentState;
-}
+int getConveyorState() { return currentConveyorState; }
+int getGeneralState() { return currentState; }
 
 void ConveyorStateCheck()
 {
@@ -132,7 +125,16 @@ int Charging()
 
 int EStop()
 {
-    EMERGENCY_STOP();
+    digitalWrite(power_o, LOW);
+    analogWrite(CSpeed_o, LOW);
+    digitalWrite(CReverse_o, LOW);
+
+    for (byte i = 0; i < sizeof(DIGITAL_OUTPUTS); i++)
+    {
+        pinMode(DIGITAL_OUTPUTS[i], OUTPUT);
+        digitalWrite(DIGITAL_OUTPUTS[i], LOW);
+    }
+    
     return currentState = (!digitalRead(start_i) && !digitalRead(eStop_i)) ? STAND_BY
                                                                            : E_STOP;
 }
@@ -154,79 +156,23 @@ int UndefinedState()
     return currentState = STAND_BY;
 }
 
-void testGoldenOutput()
-{
-    analogWrite(CSpeed_o, VelMax);
-    digitalWrite(CReverse_o, HIGH);
-}
-
-int conveyourMain()
+int Main()
 {
     switch (currentState)
     {
-    case STAND_BY:   return StandBy();
-    case OPERATION:  return Operation();
-    case CHARGING:   return Charging();
-    case E_STOP:     return EStop();
-    case SLEEP:      return Sleep();
-    default:         return UndefinedState();
+    case STAND_BY:
+        return StandBy();
+    case OPERATION:
+        return Operation();
+    case CHARGING:
+        return Charging();
+    case E_STOP:
+        return EStop();
+    case SLEEP:
+        return Sleep();
+    default:
+        return UndefinedState();
     }
 }
 
-void stateDebug()
-{
-    if ((previousState != currentState) || (previousConveyorState != currentConveyorState))
-    {
-        previousState = currentState;
-        previousConveyorState = currentConveyorState;
-        Serial.print("General state: ");
-        Serial.print(currentState);
-        switch (currentState)
-        {
-        case 0:
-            Serial.print("Stand By");
-            break;
-        case 1:
-            Serial.print("Operational");
-            break;
-        case 2:
-            Serial.print("CHARGING");
-            break;
-        case 3:
-            Serial.print("E-STOP");
-            break;
-        case 4:
-            Serial.print("Sleeping");
-            Serial.print("....I got bored and fell asleep");
-            break;
-        default:
-            Serial.print("State Error");
-            break;
-        }
-
-        Serial.print(" | Conveyor state");
-
-        switch (currentConveyorState)
-        {
-        case 0:
-            Serial.print("stand by");
-            break;
-        case 1:
-            Serial.print("FWR");
-            break;
-        case 2:
-            Serial.print("RWD");
-            break;
-
-        default:
-            Serial.print("conveyor state error");
-            break;
-        }
-        Serial.println("");
-
-        // Serial.printlnf("Start Sw: %d | E-STOP p: %d | FWR p: %d | RWD p: %d | Stop p: %d ",digitalRead(start_i),digitalRead(eStop_i),digitalRead(CFWR_i),digitalRead(CRWD_i),digitalRead(CStop_i));
-        // Serial.printlnf("power: %d | SPEED: %d | REVERS: %d ",digitalRead(power_o),digitalRead(CSpeed_o),digitalRead(CReverse_o));
-        // "you have %d hours to come to me",time
-    }
-}
 #endif

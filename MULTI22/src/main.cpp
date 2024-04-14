@@ -11,7 +11,7 @@
  * Copyright (c) 2024 MAIN 12 LLC
  *
  * @brief:
- * This script serves as the primary control structure for the CONVEYOR MULTI-22,
+ * This Program serves as the primary control structure for the CONVEYOR MULTI-22,
  * developed by Multiplo Colombia S.A.S. It is designed to be compiled with Visual
  * Studio Code using the PlatformIO plugin. The code is self-contained, including
  * all necessary external libraries located in the "lib" folder, as well as
@@ -35,4 +35,4 @@ void setup()
   attachInterrupt(CRWD_i, ConveyorStateCheck, CHANGE);
 }
 
-void loop() { conveyourMain(); }
+void loop() { Main(); }

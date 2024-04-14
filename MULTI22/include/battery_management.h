@@ -150,7 +150,7 @@ int performBatteryCheck(BatteryMode mode = _NORMAL)
   }
   return isStandbyMode ? standByBatteryCheck(batteryVoltage) : updateTrafficLightByVoltage(batteryVoltage);
 }
-int batteryCheck() { return performBatteryCheck(); }
+int batteryCheck() { return performBatteryCheck(_NORMAL); }
 int batteryCheckStandBy() { return performBatteryCheck(_STAND_BY); }
 
 // int batteryCheck()
