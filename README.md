@@ -10,6 +10,9 @@ This program serves as the central control structure for the CONVEYOR MULTI-22, 
 
 The programming architecture is founded on object-oriented finite state machines. For detailed documentation on the architecture, please refer to the accompanying documentation within the project folder or reach out directly to Main12 LLC.
 
+![System Diagram](https://juancbotero.com/wp-content/uploads/2023/07/IMG_20191229_184527-1024x484.jpg)
+
+
 ## Table of Contents
 1. [Description](#description)
 2. [Key Features](#key-features)
