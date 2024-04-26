@@ -58,10 +58,24 @@ int updateTrafficLightByVoltage(int batteryVoltage, BatteryMode mode = _NORMAL)
   bool isStandbyMode = (mode == _STAND_BY);
   switch (batteryVoltage)
   {
-  case 0 ... 39:
+  case 0 ... 3:
+
+    if ((millis() - blinkMillis >= blinkInterval) && !isStandbyMode)
+    {
+      controlTrafficLight(LOW, digitalRead(batteryRedLigth_o), !digitalRead(batteryRedLigth_o));
+      blinkMillis = millis();
+    }
+    else
+    {
+      controlTrafficLight(LOW, LOW, LOW);
+    }
+
+    break;
+  case 4 ... 39:
     controlTrafficLight(LOW, LOW, HIGH);
     break;
-  case 40 ... 42:
+
+  case 40 ... 42: // Blinking Red
 
     if (millis() - blinkMillis >= blinkInterval)
     {
@@ -70,10 +84,10 @@ int updateTrafficLightByVoltage(int batteryVoltage, BatteryMode mode = _NORMAL)
     }
 
     break;
-  case 43 ... 45:
+  case 43 ... 45: // Yellow
     isStandbyMode ? controlTrafficLight(LOW, LOW, LOW) : controlTrafficLight(LOW, HIGH, LOW);
     break;
-  case 46 ... 55:
+  case 46 ... 55: // Green
     isStandbyMode ? controlTrafficLight(LOW, LOW, LOW) : controlTrafficLight(HIGH, LOW, LOW);
     break;
   }
@@ -101,7 +115,7 @@ int standByBatteryCheck(int batteryVoltage)
 
 /**
  * Simulates battery indicator testing by controlling traffic light LEDs.
- * 
+ *
  * @param greenState  The state (HIGH/LOW) of the green LED.
  * @param yellowState The state (HIGH/LOW) of the yellow LED.
  * @param redState    The state (HIGH/LOW) of the red LED.
@@ -117,14 +131,14 @@ void simulateBatteryIndicator(byte greenState, byte yellowState, byte redState, 
  */
 void testBatteryIndicator()
 {
-  simulateBatteryIndicator(HIGH, LOW , LOW , 1500);
-  simulateBatteryIndicator(LOW , HIGH, LOW , 1500);
-  simulateBatteryIndicator(LOW , LOW , HIGH,  500);
-  simulateBatteryIndicator(LOW , LOW , LOW ,  500);
-  simulateBatteryIndicator(LOW , LOW , HIGH,  500);
-  simulateBatteryIndicator(LOW , LOW , LOW ,  500);
-  simulateBatteryIndicator(LOW , LOW , HIGH,  500);
-  simulateBatteryIndicator(LOW , LOW , LOW ,  500);
+  simulateBatteryIndicator(HIGH, LOW, LOW, 1500);
+  simulateBatteryIndicator(LOW, HIGH, LOW, 1500);
+  simulateBatteryIndicator(LOW, LOW, HIGH, 500);
+  simulateBatteryIndicator(LOW, LOW, LOW, 500);
+  simulateBatteryIndicator(LOW, LOW, HIGH, 500);
+  simulateBatteryIndicator(LOW, LOW, LOW, 500);
+  simulateBatteryIndicator(LOW, LOW, HIGH, 500);
+  simulateBatteryIndicator(LOW, LOW, LOW, 500);
 }
 
 /**
