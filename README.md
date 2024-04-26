@@ -49,6 +49,12 @@ For detailed documentation on the code architecture and usage, refer to the encl
 
 ## Version Control Log <a name="version-control"></a>
 
+### Version 3.1.2:
+- Detect issues in the battery by reading the voltage state 0v form the BMS. 
+
+### Version 3.1.1:
+- fix some bugs of the battery management.
+
 ### Version 3.1.0:
 - Code Clean Up
 - Fixed bugs of the battery indicator systems
